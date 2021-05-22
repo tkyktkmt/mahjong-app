@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'statuses/index'
   root to: "statuses#index"
   resources :statuses, only: [:index, :new]
+  resources :hands, only: :new
 end

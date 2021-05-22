@@ -57,7 +57,7 @@
 </div>
 <div class= "status-output">
   <h1 class="status-output-title">状況出力画面</h1>
-  <table class="detail-table">
+  <table class="output-table">
       <thead>
         <tr>
           <th></th>
@@ -109,6 +109,6 @@
       </tbody>
   </table>
   <div class="submit-btn-wrap">
-    <a href="#" class="submit-btn">手牌入力へ</a>
+    <%= link_to "手牌入力へ", new_hand_path, class: "submit-btn" %>
   </div>
 </div>

@@ -1,0 +1,96 @@
+<div class= "hand-input">
+  <h1 class="hand-input-title">手牌入力画面</h1>
+  <div class="hand-choice">
+    <div class="pai-list">
+      <%= image_tag "pai-images/man1-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/man2-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/man3-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/man4-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/man5-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/man6-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/man7-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/man8-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/man9-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/aka3-66-90-s-emb.png" %>
+      <br>
+      <%= image_tag "pai-images/pin1-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/pin2-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/pin3-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/pin4-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/pin5-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/pin6-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/pin7-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/pin8-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/pin9-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/aka1-66-90-s-emb.png" %>
+      <br>
+      <%= image_tag "pai-images/sou1-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/sou2-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/sou3-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/sou4-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/sou5-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/sou6-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/sou7-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/sou8-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/sou9-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/aka2-66-90-s-emb.png" %>
+      <br>
+      <%= image_tag "pai-images/ji1-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/ji2-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/ji3-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/ji4-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/ji6-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/ji5-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/ji7-66-90-s-emb.png" %>
+      <br>
+    </div>
+    <div class="btn-group">
+      <label class="input-mode-btn" id="mode1-label" >手牌入力
+        <input type="radio" name="input-mode" id="mode1" class="hidden">
+      </label>
+      <label class="input-mode-btn" id="mode2-label" >ポン
+        <input type="radio" name="input-mode" id="mode2" class="hidden">
+      </label>
+      <label class="input-mode-btn" id="mode3-label" >チー
+        <input type="radio" name="input-mode" id="mode3" class="hidden">
+      </label>
+      <label class="input-mode-btn" id="mode4-label" >暗カン
+        <input type="radio" name="input-mode" id="mode4" class="hidden">
+      </label>
+      <label class="input-mode-btn" id="mode5-label" >明カン
+        <input type="radio" name="input-mode" id="mode5" class="hidden">
+      </label>
+      <label class="input-mode-btn" id="mode6-label">ドラ入力
+        <input type="radio" name="input-mode" id="mode6"  class="hidden" >
+      </label>
+    </div>
+  </div>
+  <div class="hand-info">
+    <div class="dora-wrap">
+      ドラ:<%= image_tag "pai-images/ji5-66-90-s-emb.png", :size => '19x27', class:"dora" %>
+    </div>
+    <%#= form_with model: "#" , url: "#" , local: true do |f| %>
+    <table class="hand-table">
+      <tr>
+        <td  id="pai1"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai2"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai3"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai4"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai5"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai6"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai7"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai8"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai9"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai10"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai11"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai12"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai13"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+        <td  id="pai14"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+      </tr>
+    </table>
+    <div class="submit-btn-wrap">
+      <button type="submit" class="submit-btn">打牌候補結果へ</button>
+    </div>
+    <%# end %>
+  </div>
+</div>
