@@ -7,11 +7,11 @@
   width: 100vw;
   background-color:rgb(35, 134, 21);
 }
-h1 {
+.app-name {
   font-size: 25px;
   margin-bottom:30px;
-
 }
+
 .chat-botton {
   background-color:white;
   width:100vh;
@@ -41,4 +41,65 @@ h1 {
   text-align: center;
   text-decoration:none;
   margin-top:3px;
+}
+
+.status-input-title {
+  margin-top: 30px;
+  font-size: 25px;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  padding: 0;
+  width: 570px;
+  table-layout: fixed;
+  color: #4CAF50;
+}
+
+table tr {
+  background-color: #fff;
+  border-bottom: 1px dotted #8BC34A;
+}
+
+table tr:last-child{
+   border-bottom: 2px solid #18521b;
+}
+
+thead tr:first-child{
+  border-top: 2px solid #18521b;
+}
+
+tbody tr:first-child{
+  border-top: 2px solid #18521b;
+}
+
+table th,
+table td {
+  padding: 0.5em 10px 0.5em 1em;
+}
+
+table th {
+    color: #0f7d13;
+    width:100px;
+}
+
+.status-output-title{
+  margin-top: 30px;
+  font-size:25px;
+}
+
+.submit-btn-wrap {
+  text-align: center;
+}
+
+.submit-btn {
+  margin-top: 5px;
+  border:none;
+  display:inline-block;
+  justify-content: center;
+  text-align: center;
+  padding:0.5em;
+  background-color:darkgray;
+  color:black;
 }
