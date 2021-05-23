@@ -1,0 +1,114 @@
+<div class= "status-input">
+  <h1 class="status-input-title">状況入力画面</h1>
+    <%#= form_with model: "#" , url: "#" , local: true do |f| %>
+    <form>
+      <table class="detail-table">
+        <thead>
+          <tr>
+            <td scope="col">場風</td>
+            <td scope="col">本場</td>
+            <td scope="col">供託</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="場風入力欄" class="round-wind">#</td>
+            <td data-label="本場入力欄" class="stacking-bar">#</td>
+            <td data-label="供託入力欄" class="depojit">#</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="current-score-table">
+        <thead>
+          <tr>
+            <th></th>
+            <td scope="col">点数入力欄</td>
+            <td scope="col">自風チェック欄</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">東家</th>
+            <td data-label="点数入力欄" class="current-score">#</td>
+            <td data-label="自風チェック欄" class="self-wind">#</td>
+          </tr>
+          <tr>
+            <th scope="row">南家</th>
+            <td data-label="点数入力欄" class="current-score">#</td>
+            <td data-label="自風チェック欄" class="self-wind">#</td>
+          </tr>
+          <tr>
+            <th scope="row">西家</th>
+            <td data-label="点数入力欄" class="current-score">#</td>
+            <td data-label="自風チェック欄" class="self-wind">#</td>
+          </tr>
+          <tr>
+            <th scope="row">北家</th>
+            <td data-label="点数入力欄" class="current-score">#</td>
+            <td data-label="自風チェック欄" class="self-wind">#</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="submit-btn-wrap">
+        <input type="submit" value="出力結果表示" class="submit-btn" >
+      </div>
+    </form>
+    <%# end %>
+</div>
+<div class= "status-output">
+  <h1 class="status-output-title">状況出力画面</h1>
+  <table class="output-table">
+      <thead>
+        <tr>
+          <th></th>
+          <td scope="col" rowspan="2">点差</td>
+          <td scope="col" colspan="4">必要打点</td>
+          
+        </tr>
+        <tr>
+          <th></th>
+          <td scope="col" >ツモ</td>
+          <td scope="col" >ロン１</td>
+          <td scope="col" >ロン２</td>
+          <td scope="col" >ロン３</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">東家</th>
+          <td data-label="点差" class="score-gap">#</td>
+          <td data-label="ツモ" class="tsumo">#</td>
+          <td data-label="ロン１" class="ron1">#</td>
+          <td data-label="ロン２" class="ron2">#</td>
+          <td data-label="ロン３" class="ron3">#</td>
+        </tr>
+        <tr>
+          <th scope="row">南家</th>
+          <td data-label="点差" class="score-gap">#</td>
+          <td data-label="ツモ" class="tsumo">#</td>
+          <td data-label="ロン１" class="ron1">#</td>
+          <td data-label="ロン２" class="ron2">#</td>
+          <td data-label="ロン３" class="ron3">#</td>
+        </tr>
+        <tr>
+          <th scope="row">西家</th>
+          <td data-label="点差" class="score-gap">#</td>
+          <td data-label="ツモ" class="tsumo">#</td>
+          <td data-label="ロン１" class="ron1">#</td>
+          <td data-label="ロン２" class="ron2">#</td>
+          <td data-label="ロン３" class="ron3">#</td>
+        </tr>
+        <tr>
+          <th scope="row">北家</th>
+          <td data-label="点差" class="score-gap">#</td>
+          <td data-label="ツモ" class="tsumo">#</td>
+          <td data-label="ロン１" class="ron1">#</td>
+          <td data-label="ロン２" class="ron2">#</td>
+          <td data-label="ロン３" class="ron3">#</td>
+        </tr>
+      </tbody>
+  </table>
+  <div class="submit-btn-wrap">
+    <%= link_to "手牌入力へ", new_hand_path, class: "submit-btn" %>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+.nav {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color:rgb(35, 134, 21);
+}
+.app-name {
+  font-size: 25px;
+  margin-bottom:30px;
+}
+
+.chat-botton {
+  background-color:white;
+  width:100vh;
+  height:30px;
+  margin-top:30px;
+}
+
+.to-chat {
+  display: block;
+  color:rgb(8, 100, 23);
+  text-align: center;
+  text-decoration:none;
+  margin-top:3px;
+}
+
+.dapai-assistance-botton {
+  background-color:white;
+  width:100vh;
+  height:30px;
+  margin-top:30px;
+  
+}
+
+.to-dapai-assistance {
+  display: block;
+  color:red;
+  text-align: center;
+  text-decoration:none;
+  margin-top:3px;
+}
+
+.status-input-title {
+  margin-top: 10px;
+  font-size: 25px;
+}
+
+.detail-table {
+  margin-bottom:10px;
+  border-collapse: collapse;
+  padding: 0;
+  width: 570px;
+  table-layout: fixed;
+  color: #4CAF50;
+}
+
+.current-score-table {
+  border-collapse: collapse;
+  padding: 0;
+  width: 570px;
+  table-layout: fixed;
+  color: #4CAF50;
+}
+
+.output-table {
+  border-collapse: collapse;
+  padding: 0;
+  width: 570px;
+  table-layout: fixed;
+  color: #4CAF50;
+}
+
+table tr {
+  background-color: #fff;
+  border-bottom: 1px dotted #8BC34A;
+}
+
+table tr:last-child{
+   border-bottom: 2px solid #18521b;
+}
+
+thead tr:first-child{
+  border-top: 2px solid #18521b;
+}
+
+tbody tr:first-child{
+  border-top: 2px solid #18521b;
+}
+
+.detail-table th,
+.detail-table td {
+  padding: 0.5em 0px 0.5em 0.5em;
+}
+
+.current-score-table th,
+.current-score-table td {
+  padding: 0.5em 0px 0.5em 0.5em;
+}
+
+.output-table th,
+.output-table td {
+  padding: 0.5em 0px 0.5em 0.5em;
+}
+
+table th {
+    color: #0f7d13;
+    width:100px;
+}
+
+.status-output-title{
+  margin-top: 10px;
+  font-size:25px;
+}
+
+.submit-btn-wrap {
+  text-align: end;
+  margin-right: 0;
+  width:570px;
+}
+
+.submit-btn {
+  text-decoration:none ;
+  margin-top: 5px;
+  border:none;
+  display:inline-block;
+  justify-content: center;
+  text-align: center;
+  padding:0.5em;
+  background-color:darkgray;
+  color:black;
+  cursor: pointer;
+}

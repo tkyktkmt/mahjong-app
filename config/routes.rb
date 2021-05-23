@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: "statuses#index"
+  resources :statuses, only: [:index, :new]
+  resources :hands, only: [:new, :create, :show]
 end

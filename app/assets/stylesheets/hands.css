@@ -1,0 +1,29 @@
+.hand-input-title {
+  margin-top: 10px;
+  font-size: 25px;
+}
+
+.hand-choice {
+  margin:10px 0 20px;
+}
+
+.hand-table {
+  border-collapse: collapse;
+  padding: 0;
+  width: 570px;
+  table-layout: fixed;
+  color: #4CAF50;
+  margin-top: 10px;
+}
+
+.hand-table td {
+  padding: 0.5em 0.5em ;
+}
+
+.dora {
+  vertical-align: middle;
+}
+
+/* .hidden{
+  display:none;
+} */
