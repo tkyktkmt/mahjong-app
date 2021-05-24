@@ -7,12 +7,11 @@ class StatusesController < ApplicationController
   end
 
   def create
+    binding.pry
     @status = Status.new(status_params)
-    if @status.save
-      render :new
-    else  
-      redirect_to action: :new
-    end
+    @status.save
+    @status = Status.new(status_params)
+    render :new
   end
 
   private
@@ -23,7 +22,7 @@ class StatusesController < ApplicationController
       :score_south,   
       :score_west,    
       :score_north,   
-      :seat_wind_id,  
+      :seat_wind,  
       :round_wind_id, 
       :deposit_id,    
       :stacking_bar_id

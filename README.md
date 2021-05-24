@@ -61,7 +61,7 @@
 | score_south     | integer  | null: false |
 | score_west      | integer  | null: false |
 | score_north     | integer  | null: false |
-| seat_wind_id    | integer  | null: false |
+| seat_wind       | string   | null: false |
 | round_wind_id   | integer  | null: false |
 | deposit_id      | integer  | null: false |
 | stacking_bar_id | integer  | null: false |

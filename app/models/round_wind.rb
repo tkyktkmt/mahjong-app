@@ -3,7 +3,7 @@ class RoundWind < ActiveHash::Base
     { id: 1, name: '--' },
     { id: 2, name: '東' },
     { id: 3, name: '南' },
-    { id: 4, name: '西' },
+    { id: 4, name: '西' }
   ]
 
   include ActiveHash::Associations
