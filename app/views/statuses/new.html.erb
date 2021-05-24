@@ -12,9 +12,9 @@
         </thead>
         <tbody>
           <tr>
-            <td data-label="場風入力欄" class="round-wind">#</td>
-            <td data-label="本場入力欄" class="stacking-bar">#</td>
-            <td data-label="供託入力欄" class="depojit">#</td>
+            <td data-label="場風入力欄" class="round-wind"><%= f.collection_select(:round_wind_id, RoundWind.all, :id, :name, {}, {}) %></td>
+            <td data-label="本場入力欄" class="stacking-bar"><%= f.collection_select(:stacking_bar_id, StackingBar.all, :id, :name, {}, {}) %></td>
+            <td data-label="供託入力欄" class="deposit"><%= f.collection_select(:deposit_id, Deposit.all, :id, :name, {}, {}) %></td>
           </tr>
         </tbody>
       </table>
