@@ -1,6 +1,6 @@
 <div class= "status-input">
   <h1 class="status-input-title">状況入力画面</h1>
-    <%#= form_with model: "#" , url: "#" , local: true do |f| %>
+    <%= form_with model: @status, local: true do |f| %>
     <form>
       <table class="detail-table">
         <thead>
@@ -29,23 +29,23 @@
         <tbody>
           <tr>
             <th scope="row">東家</th>
-            <td data-label="点数入力欄" class="current-score">#</td>
-            <td data-label="自風チェック欄" class="self-wind">#</td>
+            <td data-label="点数入力欄" class="current-score"><%= f.text_field :score_east, placeholder: "例）25000", style: "border: none" %></td>
+            <td data-label="自風チェック欄" class="seat-wind"><%= f.radio_button :seat_wind, :east, checked: true %></td>
           </tr>
           <tr>
             <th scope="row">南家</th>
-            <td data-label="点数入力欄" class="current-score">#</td>
-            <td data-label="自風チェック欄" class="self-wind">#</td>
+            <td data-label="点数入力欄" class="current-score"><%= f.text_field :score_south, placeholder: "例）25000", style: "border: none" %></td>
+            <td data-label="自風チェック欄" class="seat-wind"><%= f.radio_button :seat_wind, :south %></td>
           </tr>
           <tr>
             <th scope="row">西家</th>
-            <td data-label="点数入力欄" class="current-score">#</td>
-            <td data-label="自風チェック欄" class="self-wind">#</td>
+            <td data-label="点数入力欄" class="current-score"><%= f.text_field :score_west, placeholder: "例）25000", style: "border: none" %></td>
+            <td data-label="自風チェック欄" class="seat-wind"><%= f.radio_button :seat_wind, :west %></td>
           </tr>
           <tr>
             <th scope="row">北家</th>
-            <td data-label="点数入力欄" class="current-score">#</td>
-            <td data-label="自風チェック欄" class="self-wind">#</td>
+            <td data-label="点数入力欄" class="current-score"><%= f.text_field :score_north, placeholder: "例）25000", style: "border: none" %></td>
+            <td data-label="自風チェック欄" class="seat-wind"><%= f.radio_button :seat_wind, :north %></td>
           </tr>
         </tbody>
       </table>
@@ -53,7 +53,7 @@
         <input type="submit" value="出力結果表示" class="submit-btn" >
       </div>
     </form>
-    <%# end %>
+    <% end %>
 </div>
 <div class= "status-output">
   <h1 class="status-output-title">状況出力画面</h1>

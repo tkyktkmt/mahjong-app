@@ -28,4 +28,5 @@ class StatusesController < ApplicationController
       :deposit_id,    
       :stacking_bar_id
     )
+  end
 end
