@@ -7,11 +7,14 @@ class StatusesController < ApplicationController
   end
 
   def create
-    binding.pry
     @status = Status.new(status_params)
-    @status.save
-    @status = Status.new(status_params)
-    render :new
+    if @status.save
+      @status = Status.new(status_params)
+      render :new
+    else
+      @status = Status.new(status_params)
+      render :new
+    end
   end
 
   private
