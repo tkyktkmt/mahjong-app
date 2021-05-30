@@ -29,17 +29,18 @@ const status = () => {
                       "18000":36000, "24000":48000, "36000":72000, "48000":96000};  
   const ronHash = {"1000":2000, "1300":2600, "1600":3200, "2000":4000, "2600":5200, "3200":6400, "3900":7800, "5200":10400, "6400":12800, "7700":15600, "8000":16000,
                     "12000":24000, "16000":32000, "24000":48000, "32000":64000};   
+  //配列の１要素に"value"を２項目ずつ格納したhashを組み込む記述方法。forEachで"value.label"や"value.score"でそれぞれの値を取得できる。
   // const tsumoListsOya = [{ label: "500", score: 2000},{label: "700", score:2800}, {label: "800", score:3200}, {label:"1000", score:4000}, {label:"1300", score:5200}, {label:"1600", score:6400}, {label:"2000", score:8000}, {label:"2600", score:10400}, {label:"3200", score:12800}, {label:"3900", score:15600}, {label:"4000", score:16000},
   //                       {label:"6000", score:24000}, {label:"8000", score:32000}, {label: "12000", score:48000}, {label: "16000", score:64000}];                 
+  // console.log((Object.values(tsumoListsOya)).label);
+  // console.log(tsumoListsOya[1].score);
+  // console.log(tsumoListsOya["500"]);
   const form = document.getElementById("status-form");
   console.log(tsumoHashOya[500]);
   console.log(Object.values(tsumoHashOya)[0]);
   console.log(Object.keys(tsumoHashOya)[0]);
   console.log(Object.entries(tsumoHashOya)[0]);
   console.log(Object.entries(tsumoHashOya).length);
-  // console.log((Object.values(tsumoListsOya)).label);
-  // console.log(tsumoListsOya[1].score);
-  // console.log(tsumoListsOya["500"]);
   for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
     let result = (Object.values(tsumoHashOya)[i] - 10000);
     if (result >= 0) {
@@ -75,6 +76,7 @@ const status = () => {
           break;
         };
       };
+      
       // tsumoSouth.innerHTML = Math.ceil();
       tsumoWest.innerHTML = Math.ceil();
       tsumoNorth.innerHTML = Math.ceil();
