@@ -63,23 +63,47 @@ const status = () => {
       score_north: formData.get("status[score_north]"),
       seat_wind: formData.get("status[seat_wind]"),
     };
-    console.log(stat)
+
     if (stat.seat_wind === "東"){
+      //自家と他家の点数差出力
       scoreGapEast.innerHTML = Math.ceil(stat.score_east - stat.score_east);
       scoreGapSouth.innerHTML = Math.ceil(stat.score_south - stat.score_east);
       scoreGapWest.innerHTML = Math.ceil(stat.score_west - stat.score_east);
       scoreGapNorth.innerHTML = Math.ceil(stat.score_north - stat.score_east);
-      for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
-        let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) + (scoreGapSouth.innerHTML * 1));
-        if (result >= 0) {
-          tsumoSouth.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
-          break;
+      //自家と他家の点数差出力
+      //ツモ時の必要打点
+      tsumoEast.innerHTML = "----"
+      if (scoreGapSouth.innerHTML * 1 >= 0) {
+        for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
+          let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapSouth.innerHTML * 1));
+          if (result > 0) {
+            tsumoSouth.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            break;
+          };
         };
-      };
-      
-      // tsumoSouth.innerHTML = Math.ceil();
-      tsumoWest.innerHTML = Math.ceil();
-      tsumoNorth.innerHTML = Math.ceil();
+      }
+      else {tsumoSouth.innerHTML = "----"}
+      if (scoreGapWest.innerHTML * 1 >= 0) {
+        for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
+          let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
+          if (result > 0) {
+            tsumoWest.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            break;
+          };
+        };
+      }
+      else {tsumoWest.innerHTML = "----"}
+      if (scoreGapNorth.innerHTML * 1 >= 0) {
+        for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
+          let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
+          if (result > 0) {
+            tsumoNorth.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            break;
+          };
+        };
+      }
+      else {tsumoNorth.innerHTML = "----"}
+
       eastRonFromSouth.innerHTML = Math.ceil();
       eastRonFromWest.innerHTML = Math.ceil();
       eastRonFromNorth.innerHTML = Math.ceil();
