@@ -12,9 +12,9 @@
         </thead>
         <tbody>
           <tr>
-            <td class="round-wind"><%= f.collection_select(:round_wind_id, RoundWind.all, :id, :name, {}, {}) %></td>
-            <td class="stacking-bar"><%= f.collection_select(:stacking_bar_id, StackingBar.all, :id, :name, {}, {}) %></td>
-            <td class="deposit"><%= f.collection_select(:deposit_id, Deposit.all, :id, :name, {}, {}) %></td>
+            <td class="round-wind"><%= f.collection_select(:round_wind_id, RoundWind.all, :name, :name, {}, {}) %></td>
+            <td class="stacking-bar"><%= f.collection_select(:stacking_bar_id, StackingBar.all, :name, :name, {}, {}) %></td>
+            <td class="deposit"><%= f.collection_select(:deposit_id, Deposit.all, :name, :name, {}, {}) %></td>
           </tr>
         </tbody>
       </table>
