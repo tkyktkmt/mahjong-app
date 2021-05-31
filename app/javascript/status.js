@@ -1,21 +1,25 @@
 const status = () => {
   const scoreGapEast = document.getElementById("score-gap-east");
-  const tsumoEast = document.getElementById("tsumo-east");
+  const eastTsumo = document.getElementById("east-tsumo");
+  const eastRonFromEast = document.getElementById("east-ron-from-east");
   const eastRonFromSouth = document.getElementById("east-ron-from-south");
   const eastRonFromWest = document.getElementById("east-ron-from-west");
   const eastRonFromNorth = document.getElementById("east-ron-from-north");
   const scoreGapSouth = document.getElementById("score-gap-south");
-  const tsumoSouth = document.getElementById("tsumo-south");
+  const southTsumo = document.getElementById("south-tsumo");
+  const southRonFromSouth = document.getElementById("south-ron-from-south");
   const southRonFromEast = document.getElementById("south-ron-from-east");
   const southRonFromWest = document.getElementById("south-ron-from-west");
   const southRonFromNorth = document.getElementById("south-ron-from-north");
   const scoreGapWest = document.getElementById("score-gap-west");
-  const tsumoWest = document.getElementById("tsumo-west");
+  const westTsumo = document.getElementById("west-tsumo");
+  const westRonFromWest = document.getElementById("west-ron-from-west");
   const westRonFromEast = document.getElementById("west-ron-from-east");
   const westRonFromSouth = document.getElementById("west-ron-from-south");
   const westRonFromNorth = document.getElementById("west-ron-from-north");
   const scoreGapNorth = document.getElementById("score-gap-north");
-  const tsumoNorth = document.getElementById("tsumo-north");
+  const northTsumo = document.getElementById("north-tsumo");
+  const northRonFromNorth = document.getElementById("north-ron-from-north");
   const northRonFromEast = document.getElementById("north-ron-from-east");
   const northRonFromSouth = document.getElementById("north-ron-from-south");
   const northRonFromWest = document.getElementById("north-ron-from-west");
@@ -72,8 +76,40 @@ const status = () => {
       scoreGapNorth.innerHTML = Math.ceil(stat.score_north - stat.score_east);
       //自家と他家の点数差出力
       //ツモ時の必要打点
-      tsumoEast.innerHTML = "----"
+      eastTsumo.innerHTML = "----"
       if (scoreGapSouth.innerHTML * 1 >= 0) {
+        for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
+          let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapSouth.innerHTML * 1));
+          if (result > 0) {
+            southTsumo.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            break;
+          };
+        };
+      }
+      else {southTsumo.innerHTML = "----"}
+      if (scoreGapWest.innerHTML * 1 >= 0) {
+        for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
+          let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
+          if (result > 0) {
+            westTsumo.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            break;
+          };
+        };
+      }
+      else {westTsumo.innerHTML = "----"}
+      if (scoreGapNorth.innerHTML * 1 >= 0) {
+        for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
+          let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
+          if (result > 0) {
+            northTsumo.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            break;
+          };
+        };
+      }
+      else {northTsumo.innerHTML = "----"}
+      //ロン時の必要打点
+      eastRonFromEast.innerHTML = "----"
+      if (ronHashOya.innerHTML * 1 >= 0) {
         for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
           let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapSouth.innerHTML * 1));
           if (result > 0) {
@@ -83,27 +119,6 @@ const status = () => {
         };
       }
       else {tsumoSouth.innerHTML = "----"}
-      if (scoreGapWest.innerHTML * 1 >= 0) {
-        for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
-          let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
-          if (result > 0) {
-            tsumoWest.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
-            break;
-          };
-        };
-      }
-      else {tsumoWest.innerHTML = "----"}
-      if (scoreGapNorth.innerHTML * 1 >= 0) {
-        for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
-          let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
-          if (result > 0) {
-            tsumoNorth.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
-            break;
-          };
-        };
-      }
-      else {tsumoNorth.innerHTML = "----"}
-
       eastRonFromSouth.innerHTML = Math.ceil();
       eastRonFromWest.innerHTML = Math.ceil();
       eastRonFromNorth.innerHTML = Math.ceil();
