@@ -67,13 +67,13 @@ const status = () => {
       score_north: formData.get("status[score_north]"),
       seat_wind: formData.get("status[seat_wind]"),
     };
-
+    //親番の時の必要打点出力
     if (stat.seat_wind === "東"){
       //自家と他家の点数差出力
-      scoreGapEast.innerHTML = Math.ceil(stat.score_east - stat.score_east);
-      scoreGapSouth.innerHTML = Math.ceil(stat.score_south - stat.score_east);
-      scoreGapWest.innerHTML = Math.ceil(stat.score_west - stat.score_east);
-      scoreGapNorth.innerHTML = Math.ceil(stat.score_north - stat.score_east);
+      scoreGapEast.innerHTML = stat.score_east - stat.score_east
+      scoreGapSouth.innerHTML = stat.score_south - stat.score_east
+      scoreGapWest.innerHTML = stat.score_west - stat.score_east
+      scoreGapNorth.innerHTML = stat.score_north - stat.score_east
       //自家と他家の点数差出力
       //ツモ時の必要打点
       eastTsumo.innerHTML = "----"
@@ -81,7 +81,7 @@ const status = () => {
         for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
           let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapSouth.innerHTML * 1));
           if (result > 0) {
-            southTsumo.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            southTsumo.innerHTML = (Object.keys(tsumoHashOya)[i]);
             break;
           };
         };
@@ -91,7 +91,7 @@ const status = () => {
         for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
           let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
           if (result > 0) {
-            westTsumo.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            westTsumo.innerHTML = (Object.keys(tsumoHashOya)[i]);
             break;
           };
         };
@@ -101,7 +101,7 @@ const status = () => {
         for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
           let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
           if (result > 0) {
-            northTsumo.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            northTsumo.innerHTML = (Object.keys(tsumoHashOya)[i]);
             break;
           };
         };
@@ -119,7 +119,7 @@ const status = () => {
         for( let i=0; i<Object.entries(ronHashOya).length; i++) {
           let result = (Object.values(ronHashOya)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapSouth.innerHTML * 1));
           if (result > 0) {
-            southRonFromSouth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            southRonFromSouth.innerHTML = (Object.keys(ronHashOya)[i]);
             break;
           };
         };
@@ -127,8 +127,8 @@ const status = () => {
         for( let i=0; i<Object.entries(ronHashOya).length; i++) {
           let result = (Object.values(ronHashOya)[i] / 2 + (stat.stacking_bar * 300) + (stat.deposit * 1) - (scoreGapSouth.innerHTML * 1));
           if (result > 0) {
-            southRonFromWest.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
-            southRonFromNorth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            southRonFromWest.innerHTML = (Object.keys(ronHashOya)[i]);
+            southRonFromNorth.innerHTML = (Object.keys(ronHashOya)[i]);
             break;
           };
         };
@@ -145,7 +145,7 @@ const status = () => {
         for( let i=0; i<Object.entries(ronHashOya).length; i++) {
           let result = (Object.values(ronHashOya)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
           if (result > 0) {
-            westRonFromSouth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            westRonFromSouth.innerHTML = (Object.keys(ronHashOya)[i]);
             break;
           };
         };
@@ -153,8 +153,8 @@ const status = () => {
         for( let i=0; i<Object.entries(ronHashOya).length; i++) {
           let result = (Object.values(ronHashOya)[i] / 2 + (stat.stacking_bar * 300) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
           if (result > 0) {
-            westRonFromSouth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
-            westRonFromNorth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            westRonFromSouth.innerHTML = (Object.keys(ronHashOya)[i]);
+            westRonFromNorth.innerHTML = (Object.keys(ronHashOya)[i]);
             break;
           };
         };
@@ -171,7 +171,7 @@ const status = () => {
         for( let i=0; i<Object.entries(ronHashOya).length; i++) {
           let result = (Object.values(ronHashOya)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
           if (result > 0) {
-            northRonFromNorth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            northRonFromNorth.innerHTML = (Object.keys(ronHashOya)[i]);
             break;
           };
         };
@@ -179,14 +179,138 @@ const status = () => {
         for( let i=0; i<Object.entries(ronHashOya).length; i++) {
           let result = (Object.values(ronHashOya)[i] / 2 + (stat.stacking_bar * 300) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
           if (result > 0) {
-            northRonFromSouth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
-            northRonFromWest.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            northRonFromSouth.innerHTML = (Object.keys(ronHashOya)[i]);
+            northRonFromWest.innerHTML = (Object.keys(ronHashOya)[i]);
             break;
           };
         };
       }
       else {
         northRonFromSouth.innerHTML = "----"
+        northRonFromWest.innerHTML = "----"
+        northRonFromNorth.innerHTML = "----"
+      }
+    };
+    //南家の時の必要打点出力
+    if (stat.seat_wind === "南"){
+      //自家と他家の点数差出力
+      scoreGapEast.innerHTML = stat.score_east - stat.score_south
+      scoreGapSouth.innerHTML = stat.score_south - stat.score_south
+      scoreGapWest.innerHTML = stat.score_west - stat.score_south
+      scoreGapNorth.innerHTML = stat.score_north - stat.score_south
+      //自家と他家の点数差出力
+      //ツモ時の必要打点
+      southTsumo.innerHTML = "----"
+      if (scoreGapEast.innerHTML * 1 >= 0) {
+        for( let i=0; i<Object.entries(tsumoHashToOya).length; i++) {
+          let result = (Object.values(tsumoHashToOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapEast.innerHTML * 1));
+          if (result > 0) {
+            eastTsumo.innerHTML = (Object.keys(tsumoHashToOya)[i]);
+            break;
+          };
+        };
+      }
+      else {eastTsumo.innerHTML = "----"}
+      if (scoreGapWest.innerHTML * 1 >= 0) {
+        for( let i=0; i<Object.entries(tsumoHash).length; i++) {
+          let result = (Object.values(tsumoHash)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
+          if (result > 0) {
+            westTsumo.innerHTML = (Object.keys(tsumoHash)[i]);
+            break;
+          };
+        };
+      }
+      else {westTsumo.innerHTML = "----"}
+      if (scoreGapNorth.innerHTML * 1 >= 0) {
+        for( let i=0; i<Object.entries(tsumoHash).length; i++) {
+          let result = (Object.values(tsumoHash)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
+          if (result > 0) {
+            northTsumo.innerHTML = (Object.keys(tsumoHash)[i]);
+            break;
+          };
+        };
+      }
+      else {northTsumo.innerHTML = "----"}
+      //ロン時の必要打点
+      southRonFromEast.innerHTML = "----"
+      southRonFromSouth.innerHTML = "----"
+      southRonFromWest.innerHTML = "----"
+      southRonFromNorth.innerHTML = "----"
+      //ロン時の必要打点（東家をまくる打点）
+      eastRonFromSouth.innerHTML = "----"
+      if (scoreGapEast.innerHTML * 1 >= 0) {
+        //直撃の場合
+        for( let i=0; i<Object.entries(ronHash).length; i++) {
+          let result = (Object.values(ronHash)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapEast.innerHTML * 1));
+          if (result > 0) {
+            eastRonFromEast.innerHTML = (Object.keys(ronHash)[i]);
+            break;
+          };
+        };
+        //直撃ではない場合
+        for( let i=0; i<Object.entries(ronHash).length; i++) {
+          let result = (Object.values(ronHash)[i] / 2 + (stat.stacking_bar * 300) + (stat.deposit * 1) - (scoreGapEast.innerHTML * 1));
+          if (result > 0) {
+            eastRonFromWest.innerHTML = (Object.keys(ronHash)[i]);
+            eastRonFromNorth.innerHTML = (Object.keys(ronHash)[i]);
+            break;
+          };
+        };
+      }
+      else {
+        eastRonFromEast.innerHTML = "----"
+        eastRonFromWest.innerHTML = "----"
+        eastRonFromNorth.innerHTML = "----"
+      }
+      //ロン時の必要打点（西家をまくる打点）
+      westRonFromSouth.innerHTML = "----"
+      if (scoreGapWest.innerHTML * 1 >= 0) {
+        //直撃の場合
+        for( let i=0; i<Object.entries(ronHash).length; i++) {
+          let result = (Object.values(ronHash)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
+          if (result > 0) {
+            westRonFromWest.innerHTML = (Object.keys(ronHash)[i]);
+            break;
+          };
+        };
+        //直撃ではない場合
+        for( let i=0; i<Object.entries(ronHash).length; i++) {
+          let result = (Object.values(ronHash)[i] / 2 + (stat.stacking_bar * 300) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
+          if (result > 0) {
+            westRonFromEast.innerHTML = (Object.keys(ronHash)[i]);
+            westRonFromNorth.innerHTML = (Object.keys(ronHash)[i]);
+            break;
+          };
+        };
+      }
+      else {
+        westRonFromEast.innerHTML = "----"
+        westRonFromWest.innerHTML = "----"
+        westRonFromNorth.innerHTML = "----"
+      }
+      //ロン時の必要打点（北家をまくる打点）
+      northRonFromSouth.innerHTML = "----"
+      if (scoreGapNorth.innerHTML * 1 >= 0) {
+        //直撃の場合
+        for( let i=0; i<Object.entries(ronHash).length; i++) {
+          let result = (Object.values(ronHash)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
+          if (result > 0) {
+            northRonFromNorth.innerHTML = (Object.keys(ronHash)[i]);
+            break;
+          };
+        };
+        //直撃ではない場合
+        for( let i=0; i<Object.entries(ronHash).length; i++) {
+          let result = (Object.values(ronHash)[i] / 2 + (stat.stacking_bar * 300) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
+          if (result > 0) {
+            northRonFromEast.innerHTML = (Object.keys(ronHash)[i]);
+            northRonFromWest.innerHTML = (Object.keys(ronHash)[i]);
+            break;
+          };
+        };
+      }
+      else {
+        northRonFromEast.innerHTML = "----"
         northRonFromWest.innerHTML = "----"
         northRonFromNorth.innerHTML = "----"
       }
