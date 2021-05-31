@@ -109,19 +109,87 @@ const status = () => {
       else {northTsumo.innerHTML = "----"}
       //ロン時の必要打点
       eastRonFromEast.innerHTML = "----"
-      if (ronHashOya.innerHTML * 1 >= 0) {
-        for( let i=0; i<Object.entries(tsumoHashOya).length; i++) {
-          let result = (Object.values(tsumoHashOya)[i] + (stat.stacking_bar * 400) + (stat.deposit * 1) - (scoreGapSouth.innerHTML * 1));
+      eastRonFromSouth.innerHTML = "----"
+      eastRonFromWest.innerHTML = "----"
+      eastRonFromNorth.innerHTML = "----"
+      //ロン時の必要打点（南家をまくる打点）
+      southRonFromEast.innerHTML = "----"
+      if (scoreGapSouth.innerHTML * 1 >= 0) {
+        //直撃の場合
+        for( let i=0; i<Object.entries(ronHashOya).length; i++) {
+          let result = (Object.values(ronHashOya)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapSouth.innerHTML * 1));
           if (result > 0) {
-            tsumoSouth.innerHTML = Math.ceil(Object.keys(tsumoHashOya)[i]);
+            southRonFromSouth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            break;
+          };
+        };
+        //直撃ではない場合
+        for( let i=0; i<Object.entries(ronHashOya).length; i++) {
+          let result = (Object.values(ronHashOya)[i] / 2 + (stat.stacking_bar * 300) + (stat.deposit * 1) - (scoreGapSouth.innerHTML * 1));
+          if (result > 0) {
+            southRonFromWest.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            southRonFromNorth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
             break;
           };
         };
       }
-      else {tsumoSouth.innerHTML = "----"}
-      eastRonFromSouth.innerHTML = Math.ceil();
-      eastRonFromWest.innerHTML = Math.ceil();
-      eastRonFromNorth.innerHTML = Math.ceil();
+      else {
+        southRonFromSouth.innerHTML = "----"
+        southRonFromWest.innerHTML = "----"
+        southRonFromNorth.innerHTML = "----"
+      }
+      //ロン時の必要打点（西家をまくる打点）
+      westRonFromEast.innerHTML = "----"
+      if (scoreGapWest.innerHTML * 1 >= 0) {
+        //直撃の場合
+        for( let i=0; i<Object.entries(ronHashOya).length; i++) {
+          let result = (Object.values(ronHashOya)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
+          if (result > 0) {
+            westRonFromSouth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            break;
+          };
+        };
+        //直撃ではない場合
+        for( let i=0; i<Object.entries(ronHashOya).length; i++) {
+          let result = (Object.values(ronHashOya)[i] / 2 + (stat.stacking_bar * 300) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
+          if (result > 0) {
+            westRonFromSouth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            westRonFromNorth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            break;
+          };
+        };
+      }
+      else {
+        westRonFromSouth.innerHTML = "----"
+        westRonFromWest.innerHTML = "----"
+        westRonFromNorth.innerHTML = "----"
+      }
+      //ロン時の必要打点（北家をまくる打点）
+      northRonFromEast.innerHTML = "----"
+      if (scoreGapNorth.innerHTML * 1 >= 0) {
+        //直撃の場合
+        for( let i=0; i<Object.entries(ronHashOya).length; i++) {
+          let result = (Object.values(ronHashOya)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
+          if (result > 0) {
+            northRonFromNorth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            break;
+          };
+        };
+        //直撃ではない場合
+        for( let i=0; i<Object.entries(ronHashOya).length; i++) {
+          let result = (Object.values(ronHashOya)[i] / 2 + (stat.stacking_bar * 300) + (stat.deposit * 1) - (scoreGapNorth.innerHTML * 1));
+          if (result > 0) {
+            northRonFromSouth.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            northRonFromWest.innerHTML = Math.ceil(Object.keys(ronHashOya)[i]);
+            break;
+          };
+        };
+      }
+      else {
+        northRonFromSouth.innerHTML = "----"
+        northRonFromWest.innerHTML = "----"
+        northRonFromNorth.innerHTML = "----"
+      }
     };
   });
 };
