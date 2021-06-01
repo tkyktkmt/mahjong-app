@@ -12,10 +12,8 @@ class Status < ApplicationRecord
       validates :score_west      
       validates :score_north     
     end
-    with_options numericality: { other_than: 1 } do    
-      validates :round_wind_id   
-      validates :deposit_id      
-      validates :stacking_bar_id 
-    end
+    validates :round_wind_id   
+    validates :deposit_id      
+    validates :stacking_bar_id 
   end  
 end

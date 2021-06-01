@@ -6,7 +6,7 @@ class CreateStatuses < ActiveRecord::Migration[6.0]
       t.integer    :score_west,      null: false
       t.integer    :score_north,     null: false
       t.string     :seat_wind,       null: false
-      t.integer    :round_wind_id,   null: false
+      t.string     :round_wind_id,   null: false
       t.integer    :deposit_id,      null: false
       t.integer    :stacking_bar_id, null: false
       t.timestamps

@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2021_05_23_010244) do
     t.integer "score_west", null: false
     t.integer "score_north", null: false
     t.string "seat_wind", null: false
-    t.integer "round_wind_id", null: false
+    t.string "round_wind_id", null: false
     t.integer "deposit_id", null: false
     t.integer "stacking_bar_id", null: false
     t.datetime "created_at", precision: 6, null: false

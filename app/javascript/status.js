@@ -39,7 +39,7 @@ const status = () => {
   // console.log((Object.values(tsumoListsOya)).label);
   // console.log(tsumoListsOya[1].score);
   // console.log(tsumoListsOya["500"]);
-  const form = document.getElementById("status-form");
+  const inputForm = document.getElementById("submit-btn-input");
   console.log(tsumoHashOya[500]);
   console.log(Object.values(tsumoHashOya)[0]);
   console.log(Object.keys(tsumoHashOya)[0]);
@@ -52,7 +52,7 @@ const status = () => {
     break;
     };
   };
-  form.addEventListener("submit",(e) => {
+  inputForm.addEventListener("click",(e) => {
     e.preventDefault();
     const formResult = document.getElementById("status-form");
     const formData = new FormData(formResult);
