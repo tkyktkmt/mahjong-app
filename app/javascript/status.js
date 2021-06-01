@@ -66,6 +66,7 @@ const status = () => {
     };
     //合計が100000でない場合はデータ出力しない
     if (!((stat.score_east * 1) + (stat.score_south * 1) + (stat.score_west * 1) + (stat.score_north * 1) + (stat.deposit * 1) == 100000)){
+      alert(`Error ：Please make sum of score and deposit 100,000`);
       return
     }
     else {
