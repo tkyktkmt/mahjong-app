@@ -16,4 +16,10 @@ class Status < ApplicationRecord
     validates :deposit_id      
     validates :stacking_bar_id 
   end  
+  validate :sum_of_score_and_deposit
+  
+  def sum_of_score_and_deposit
+    error_message = "Please make sum of score and deposit 100,000 "
+    errors.add(:score_east, error_message) unless (score_east + score_south + score_west + score_north + deposit_id == 100000)
+  end
 end
