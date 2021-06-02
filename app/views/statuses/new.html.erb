@@ -1,7 +1,7 @@
-<div class= "status-input">
-  <h1 class="status-input-title">状況入力画面</h1>
-    <%= form_with model: @status, url: statuses_path, local: true do |f| %>
-    <form>
+<%= form_with model: @status, url: statuses_path, id: "status-form", local: true do |f| %>
+  <form>
+    <div class= "status-input">
+      <h1 class="status-input-title">状況入力画面</h1>
       <table class="detail-table">
         <thead>
           <tr>
@@ -12,9 +12,9 @@
         </thead>
         <tbody>
           <tr>
-            <td class="round-wind"><%= f.collection_select(:round_wind_id, RoundWind.all, :id, :name, {}, {}) %></td>
-            <td class="stacking-bar"><%= f.collection_select(:stacking_bar_id, StackingBar.all, :id, :name, {}, {}) %></td>
-            <td class="deposit"><%= f.collection_select(:deposit_id, Deposit.all, :id, :name, {}, {}) %></td>
+            <td class="round-wind"><%= f.collection_select(:round_wind_id, RoundWind.all, :name, :name, {}, {}) %></td>
+            <td class="stacking-bar"><%= f.collection_select(:stacking_bar_id, StackingBar.all, :name, :name, {}, {}) %></td>
+            <td class="deposit"><%= f.collection_select(:deposit_id, Deposit.all, :name, :name, {}, {}) %></td>
           </tr>
         </tbody>
       </table>
@@ -31,7 +31,8 @@
             <th scope="row">東家</th>
             <td class="current-score"><%= f.text_field :score_east, placeholder: "例）25000", style: "border: none" %></td>
             <td class="seat-wind"><%= f.radio_button :seat_wind, "東" %></td>
-          </tr>         <tr>
+          </tr>         
+          <tr>
             <th scope="row">南家</th>
             <td class="current-score"><%= f.text_field :score_south, placeholder: "例）25000", style: "border: none" %></td>
             <td class="seat-wind"><%= f.radio_button :seat_wind, "南" %></td>
@@ -49,65 +50,69 @@
         </tbody>
       </table>
       <div class="submit-btn-wrap">
-        <%= f.submit "出力結果表示", class:"submit-btn" %>
+        <%= link_to "出力結果表示", "#", class: "submit-btn", id: "submit-btn-input" %>
       </div>
-    </form>
-    <% end %>
-</div>
-<div class= "status-output">
-  <h1 class="status-output-title">状況出力画面</h1>
-  <table class="output-table">
-      <thead>
-        <tr>
-          <th></th>
-          <td scope="col" rowspan="2">点差</td>
-          <td scope="col" colspan="4">必要打点</td>
-          
-        </tr>
-        <tr>
-          <th></th>
-          <td scope="col" >ツモ</td>
-          <td scope="col" >ロン１</td>
-          <td scope="col" >ロン２</td>
-          <td scope="col" >ロン３</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">東家</th>
-          <td class="score-gap">#</td>
-          <td class="tsumo">#</td>
-          <td class="ron1">#</td>
-          <td class="ron2">#</td>
-          <td class="ron3">#</td>
-        </tr>
-        <tr>
-          <th scope="row">南家</th>
-          <td class="score-gap">#</td>
-          <td class="tsumo">#</td>
-          <td class="ron1">#</td>
-          <td class="ron2">#</td>
-          <td class="ron3">#</td>
-        </tr>
-        <tr>
-          <th scope="row">西家</th>
-          <td class="score-gap">#</td>
-          <td class="tsumo">#</td>
-          <td class="ron1">#</td>
-          <td class="ron2">#</td>
-          <td class="ron3">#</td>
-        </tr>
-        <tr>
-          <th scope="row">北家</th>
-          <td class="score-gap">#</td>
-          <td class="tsumo">#</td>
-          <td class="ron1">#</td>
-          <td class="ron2">#</td>
-          <td class="ron3">#</td>
-        </tr>
-      </tbody>
-  </table>
-  <div class="submit-btn-wrap">
-    <%= link_to "手牌入力へ", new_hand_path, class: "submit-btn" %>
-  </div>
-</div>
+    </div>
+    <div class= "status-output">
+      <h1 class="status-output-title">状況出力画面</h1>
+      <table class="output-table">
+        <thead>
+          <tr>
+            <th></th>
+            <td scope="col" rowspan="2">点差</td>
+            <td scope="col" colspan="5">必要打点</td>
+          </tr>
+          <tr>
+            <th></th>
+            <td scope="col" >ツモ</td>
+            <td scope="col" >ロン東</td>
+            <td scope="col" >ロン南</td>
+            <td scope="col" >ロン西</td>
+            <td scope="col" >ロン北</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">東家</th>
+            <td id="score-gap-east"></td>
+            <td id="east-tsumo"></td>
+            <td id="east-ron-from-east"></td>
+            <td id="east-ron-from-south"></td>
+            <td id="east-ron-from-west"></td>
+            <td id="east-ron-from-north"></td>
+          </tr>
+          <tr>
+            <th scope="row">南家</th>
+            <td id="score-gap-south"></td>
+            <td id="south-tsumo"></td>
+            <td id="south-ron-from-east"></td>
+            <td id="south-ron-from-south"></td>
+            <td id="south-ron-from-west"></td>
+            <td id="south-ron-from-north"></td>
+          </tr>
+          <tr>
+            <th scope="row">西家</th>
+            <td id="score-gap-west"></td>
+            <td id="west-tsumo"></td>
+            <td id="west-ron-from-east"></td>
+            <td id="west-ron-from-south"></td>
+            <td id="west-ron-from-west"></td>
+            <td id="west-ron-from-north"></td>
+          </tr>
+          <tr>
+            <th scope="row">北家</th>
+            <td id="score-gap-north"></td>
+            <td id="north-tsumo"></td>
+            <td id="north-ron-from-east"></td>
+            <td id="north-ron-from-south"></td>
+            <td id="north-ron-from-west"></td>
+            <td id="north-ron-from-north"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="submit-btn-wrap">
+        <%= f.submit "手牌入力へ", class:"submit-btn" %>
+      </div>
+    </div>
+  </form>
+<% end %>
