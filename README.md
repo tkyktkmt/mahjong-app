@@ -62,7 +62,7 @@
 | score_west      | integer  | null: false |
 | score_north     | integer  | null: false |
 | seat_wind       | string   | null: false |
-| round_wind_id   | integer  | null: false |
+| round_wind_id   | string   | null: false |
 | deposit_id      | integer  | null: false |
 | stacking_bar_id | integer  | null: false |
 
@@ -75,6 +75,7 @@
 | Column        | Type       | Options                        |
 |---------------|------------|--------------------------------|
 | hand          | string     | null: false                    |
+| status        | references | null: false, foreign_key: true |
 
 ### Association
 

@@ -3,6 +3,7 @@ class Status < ApplicationRecord
   belongs_to :deposit
   belongs_to :stacking_bar
   belongs_to :round_wind
+  has_many :hands
 
   with_options presence: true do
     with_options format: { with: /\A[0-9]+\z/ },
