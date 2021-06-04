@@ -1,6 +1,6 @@
 const hand = () => {
-  $(".pai-list").(function () {
-    console.log(this.id)
+  $(".pai-list").click(function () {
+    console.log(this.id);
   });
   // const paiList = document.getElementsByClassName("pais");
   // paiList.addEventListener('click', function() {
