@@ -1,14 +1,15 @@
 const hand = () => {
-  $(".pai-list").click(function () {
-    console.log(this.id);
+  $(".pais").click(function () {
+    let pai = $(this).attr("src");
+    for(let x=1; x<=14; x++){
+      if (!$(`#pai${x}`).attr("src")) {
+        $(`#pai${x}`).attr("src",pai);
+        break;
+      }
+    };
   });
-  // const paiList = document.getElementsByClassName("pais");
-  // paiList.addEventListener('click', function() {
-  //   console.log("hello");
-  //   console.log(this)
-  //   // let paiName = this.getElementByName("name")
-  //   // console.log(paiName)
-  // });
+
+  //jqueryを使わずに全牌種の要素を取得する場合
   // for(let i=0; i<=9; i++) {
   //   const mani = document.getElementById(`man${i}`);
   //   const soui = document.getElementById(`sou${i}`); 
