@@ -1,12 +1,40 @@
 const hand = () => {
   $(".pais").click(function () {
-    let pai = $(this).attr("src");
+    let paiSrc = $(this).attr("src");
+    let paiName = $(this).attr("name");
     for(let x=1; x<=14; x++){
       if (!$(`#pai${x}`).attr("src")) {
-        $(`#pai${x}`).attr("src",pai);
+        $(`#pai${x}`).removeAttr("name");
+        $(`#pai${x}`).attr({src: paiSrc, name: paiName});
+        const paiList = Array.prototype.slice.call($(".pai"));
+        paiList.sort(function(a, b) {
+          if (a.name - b.name > 0) {
+          return 1;
+          }
+          else {
+            return -1;
+          }
+        });
+        
+        // console.log(Object.values($(".pais")))
+        // console.log(paiList)
+        console.log(paiList[0].name)
+        console.log(Object.values(paiList)[0].name)
+        // $(".pai").removeAttr("src name");
+        for (let y=0; y<paiList.length; y++) {
+          var paiListNum = paiList[y].name;
+          var paiNameNum = ($(`img[name="${paiListNum}"].pais`));
+          var paiListSrc = paiNameNum.attr("src")
+          $(`#pai${y+1}`).removeAttr("src name");
+          $(`#pai${y+1}`).attr({src: paiListSrc, name: paiListNum});
+        }
         break;
-      }
+      }  
     };
+  });
+  
+  $(".pai").click(function() {
+    $(this).removeAttr("src")
   });
 
   //jqueryを使わずに全牌種の要素を取得する場合
