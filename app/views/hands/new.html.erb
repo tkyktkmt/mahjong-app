@@ -46,7 +46,7 @@
     </div>
     <div class="btn-group">
       <label class="input-mode-btn" id="mode1-label" >手牌入力
-        <input type="radio", name="input-mode" id="mode1" class="hidden">
+        <input type="radio", name="input-mode" id="mode1" class="hidden" checked>
       </label>
       <label class="input-mode-btn" id="mode2-label" >ポン
         <input type="radio", name="input-mode" id="mode2" class="hidden">
@@ -67,7 +67,7 @@
   </div>
   <div class="hand-info">
     <div class="dora-wrap">
-      ドラ:<%= image_tag "pai-images/ji5-66-90-s-emb.png", :size => '19x27', class:"dora", name:"dora", id:"dora" %>
+      ドラ:<%= image_tag "", :size => '19x27', class:"dora", name:"dora", id:"dora", alt:"" %>
     </div>
     <%#= form_with model: "#" , url: "#" , local: true do |f| %>
     <table class="hand-table" id="hand-table">

@@ -4,22 +4,31 @@ const hand = () => {
     //クリックした牌の牌画と牌名を取得
     let paiSrc = $(this).attr("src");
     let paiName = $(this).attr("name");
-    for(let x=1; x<=14; x++){
-      //手牌表示欄に左詰めで入力
-      if (!$(`#pai${900+x}`).attr("src")) {
-        $(`#pai${900+x}`).attr({src: paiSrc, name: paiName});
-        sortHand();
-        break;
-      }  
+    if (document.getElementById("mode1").checked){
+      for(let x=1; x<=14; x++){
+        //手牌表示欄に左詰めで入力
+        if (!$(`#pai${900+x}`).attr("src")) {
+          $(`#pai${900+x}`).attr({src: paiSrc, name: paiName});
+          sortHand();
+          break;
+        } ; 
+      };
+    };
+    if (document.getElementById("mode6").checked){
+      $("#dora").attr({src: paiSrc, name: paiName});
     };
   });
-  //クリックした牌を削除
+  //クリックした手牌を削除
   $(".pai").click(function() {
     $(this).removeAttr("src")
     $(this).attr("name", 915)
     sortHand();
   });
+  $(".dora").click(function() {
+    $(this).removeAttr("src")
+  })
   
+  //理牌メソッド
   function sortHand() {
     //手牌表示欄の牌姿を配列paiListとして抜きだす
     let paiList = Array.prototype.slice.call($(".pai"));
