@@ -7,7 +7,7 @@
   margin:10px 0 20px;
 }
 
-.hand-table {
+.hand-table, .huro-info {
   border-collapse: collapse;
   padding: 0;
   width: 570px;
@@ -24,7 +24,6 @@
   border-collapse: collapse;
   table-layout: fixed;
   margin-top: 10px;
-  margin-right: 27px;
   width: 122px;
 }
 
@@ -34,6 +33,7 @@
 
 .huro-info {
   display:flex;
+  justify-content:space-between;
 }
 
 .dora {

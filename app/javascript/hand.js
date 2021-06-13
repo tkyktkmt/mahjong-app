@@ -22,62 +22,47 @@ const hand = () => {
         }; 
       };
     };
-    //ポン入力モード
-    if (document.getElementById("mode2").checked){
+    //ポン・チー入力モード
+    if (document.getElementById("mode2").checked || document.getElementById("mode3").checked){
       for(let x=1; x<=12; x++){
         if (!$(`#pai${800+x}`).attr("src")) {
           $(`#pai${800+x}`).attr({src: paiSrc, name: paiName});
           let huroCount = Math.floor((x+2)/3);
-          let ponList = Array.prototype.slice.call($(`.huro-pai${huroCount}`));
-          let ponEditClassTr = $(`.huro-table${huroCount}-tr`);
-          let ponEditClassTd = `huro-table${huroCount}-td`;
-          let ponEditId = `pon${huroCount}-`
-          sortHand(ponList, ponEditClassTr, ponEditId, ponEditClassTd);
+          let huroList = Array.prototype.slice.call($(`.huro-pai${huroCount}`));
+          let huroEditClassTr = $(`.huro-table${huroCount}-tr`);
+          let huroEditClassTd = `huro-table${huroCount}-td`;
+          document.getElementById("mode2").checked ? huroEditId = `pon${huroCount}-` : huroEditId = `chii${huroCount}-`
+          sortHand(huroList, huroEditClassTr, huroEditId, huroEditClassTd);
           //手牌表示欄の空のtdを削除してtdタグの総数を14に保つ
           $(`.huro-table${huroCount}-td:empty`).remove();
+          //ポン・チーのvalidation設定
           //ポン入力時は同じ牌が３牌揃っていなければならない
           if ($(`#pon${huroCount}-3 > .huro-pai${huroCount}`).attr("src")){
-            if (!((ponList[0].name == ponList[1].name && ponList[1].name == ponList[2].name) ||
-                 (ponList[0].name == 5 && ponList[1].name == 5 && ponList[2].name == 5.5) ||
-                 (ponList[0].name == 15 && ponList[1].name == 15 && ponList[2].name == 15.5) ||
-                 (ponList[0].name == 15 && ponList[1].name == 25 && ponList[2].name == 25.5) )){
-                  alert(`Error ：同じ牌を選択してください`);
-                  $(`#pon${huroCount}-3 > .huro-pai${huroCount}`).removeAttr("src");
-                  paiId = $(`#pon${huroCount}-3 > .huro-pai${huroCount}`).attr("id").replaceAll("pai", "")
-                  $(`#pon${huroCount}-3 > .huro-pai${huroCount}`).attr("name", paiId)
-                  return
-            };
+            // if (document.getElementById("mode2").checked){
+              if (!((huroList[0].name == huroList[1].name && huroList[1].name == huroList[2].name) ||
+                  (huroList[0].name == 5 && huroList[1].name == 5 && huroList[2].name == 5.1) ||
+                  (huroList[0].name == 15 && huroList[1].name == 15 && huroList[2].name == 15.1) ||
+                  (huroList[0].name == 25 && huroList[1].name == 25 && huroList[2].name == 25.1) )){
+                    alert(`Error ：同じ牌を３つ選択してください`);
+                    $(`#pon${huroCount}-3 > .huro-pai${huroCount}`).removeAttr("src");
+                    paiId = $(`#pon${huroCount}-3 > .huro-pai${huroCount}`).attr("id").replaceAll("pai", "")
+                    $(`#pon${huroCount}-3 > .huro-pai${huroCount}`).attr("name", paiId)
+                    return
+              };
+            // };
           };
-          break;
-        }; 
-      };
-    };
-    
-    //ポン入力モード
-    if (document.getElementById("mode3").checked){
-      for(let x=1; x<=12; x++){
-        if (!$(`#pai${800+x}`).attr("src")) {
-          $(`#pai${800+x}`).attr({src: paiSrc, name: paiName});
-          let huroCount = Math.floor((x+2)/3);
-          let ponList = Array.prototype.slice.call($(`.huro-pai${huroCount}`));
-          let ponEditClassTr = $(`.huro-table${huroCount}-tr`);
-          let ponEditClassTd = `huro-table${huroCount}-td`;
-          let ponEditId = `pon${huroCount}-`
-          sortHand(ponList, ponEditClassTr, ponEditId, ponEditClassTd);
-          //手牌表示欄の空のtdを削除してtdタグの総数を14に保つ
-          $(`.huro-table${huroCount}-td:empty`).remove();
-          //ポン入力時は同じ牌が３牌揃っていなければならない
-          if ($(`#pon${huroCount}-3 > .huro-pai${huroCount}`).attr("src")){
-            if (!((ponList[0].name == ponList[1].name && ponList[1].name == ponList[2].name) ||
-                 (ponList[0].name == 5 && ponList[1].name == 5 && ponList[2].name == 5.5) ||
-                 (ponList[0].name == 15 && ponList[1].name == 15 && ponList[2].name == 15.5) ||
-                 (ponList[0].name == 15 && ponList[1].name == 25 && ponList[2].name == 25.5) )){
-                  alert(`Error ：同じ牌を選択してください`);
-                  $(`#pon${huroCount}-3 > .huro-pai${huroCount}`).removeAttr("src");
-                  paiId = $(`#pon${huroCount}-3 > .huro-pai${huroCount}`).attr("id").replaceAll("pai", "")
-                  $(`#pon${huroCount}-3 > .huro-pai${huroCount}`).attr("name", paiId)
-                  return
-            };
+          //チー入力時は３つの牌が連続していなければならない
+          if ($(`#chii${huroCount}-3 > .huro-pai${huroCount}`).attr("src")){
+            // if (document.getElementById("mode3").checked){
+              if (!((0.1 < huroList[1].name - huroList[0].name) && (huroList[1].name - huroList[0].name < 2) && 
+                    (0.1 < huroList[2].name - huroList[1].name) && (huroList[2].name - huroList[1].name < 2))) {
+                    alert(`Error ：連続する牌を３つを選択してください`);
+                    $(`#chii${huroCount}-3 > .huro-pai${huroCount}`).removeAttr("src");
+                    paiId = $(`#chii${huroCount}-3 > .huro-pai${huroCount}`).attr("id").replaceAll("pai", "")
+                    $(`#chii${huroCount}-3 > .huro-pai${huroCount}`).attr("name", paiId)
+                    return
+              };
+            // };
           };
           break;
         }; 
