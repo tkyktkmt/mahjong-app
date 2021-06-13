@@ -20,9 +20,26 @@
   padding: 0.5em 0.5em ;
 }
 
+.huro-table1, .huro-table2, .huro-table3, .huro-table4 {
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 10px;
+  margin-right: 27px;
+  width: 122px;
+}
+
+.huro-table1 td, .huro-table2 td, .huro-table3 td, .huro-table4 td {
+  padding: 8px 8px ;
+}
+
+.huro-info {
+  display:flex;
+}
+
 .dora {
   vertical-align: middle;
 }
+
 
 /* .hidden{
   display:none;
