@@ -65,10 +65,11 @@ const hand = () => {
       };
     };
     //暗カン入力モード
-    if (document.getElementById("mode4").checked){
+    if (document.getElementById("mode4").checked || document.getElementById("mode5").checked){
       for(let z=1; z<=12; z++){
         if (!$(`#pai${800+z}`).attr("src")) {
           var huroCount = Math.floor((z+2)/3);
+          
           for (let w=1; w<=3; w++){
             if ($(`#huro-pai${huroCount}-${w} > .huro-pai${huroCount}`).length){
               var obstaclePai = $(`#huro-pai${huroCount}-${w} > .huro-pai${huroCount}`)
@@ -94,11 +95,20 @@ const hand = () => {
           var huroList = Array.prototype.slice.call($(`.huro-pai${huroCount}`));
           var huroEditClassTr = $(`.huro-table${huroCount}-tr`);
           var huroEditClassTd = `huro-table${huroCount}-td`;
-          var huroEditId = `ankan${huroCount}-`
+          document.getElementById("mode4").checked ? huroEditId = `ankan${huroCount}-` : huroEditId = `minkan${huroCount}-`
           sortHand(huroList, huroEditClassTr, huroEditId, huroEditClassTd);
-          $(`#ankan${huroCount}-1`).append("<p>暗</p>");
-          $(`#ankan${huroCount}-2`).append("<p>カ</p>");
-          $(`#ankan${huroCount}-3`).append("<p>ン</p>");
+
+          if (document.getElementById("mode4").checked){
+            $(`#ankan${huroCount}-1`).append("<p>暗</p>");
+            $(`#ankan${huroCount}-2`).append("<p>カ</p>");
+            $(`#ankan${huroCount}-3`).append("<p>ン</p>");
+          }
+          else{
+            $(`#minkan${huroCount}-1`).append("<p>明</p>");
+            $(`#minkan${huroCount}-2`).append("<p>カ</p>");
+            $(`#minkan${huroCount}-3`).append("<p>ン</p>");
+            $(`.huro-table${huroCount}-td > p`).css('background-color','gray');
+          };
           //手牌表示欄の空のtdを削除してtdタグの総数を3に保つ
           $(`.huro-table${huroCount}-td:empty`).remove();
           break;
