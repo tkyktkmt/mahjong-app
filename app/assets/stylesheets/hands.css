@@ -17,7 +17,8 @@
 }
 
 .hand-table td {
-  padding: 0.5em 0.5em ;
+  padding: 8px 0 0 0 ;
+  text-align: center;
 }
 
 .huro-table1, .huro-table2, .huro-table3, .huro-table4 {
@@ -27,8 +28,23 @@
   width: 122px;
 }
 
-.huro-table1 td, .huro-table2 td, .huro-table3 td, .huro-table4 td {
-  padding: 8px 8px ;
+.huro-table1-td, .huro-table2-td, .huro-table3-td, .huro-table4-td {
+  padding: 8px 0 0 0 ;
+  position: relative;
+  text-align: center;
+}
+
+.huro-table1-td p, .huro-table2-td p, .huro-table3-td p, .huro-table4-td p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  margin:0;
+  padding:0;
+  color: white;
+  background: brown;
 }
 
 .huro-info {

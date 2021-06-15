@@ -96,6 +96,9 @@ const hand = () => {
           var huroEditClassTd = `huro-table${huroCount}-td`;
           var huroEditId = `ankan${huroCount}-`
           sortHand(huroList, huroEditClassTr, huroEditId, huroEditClassTd);
+          $(`#ankan${huroCount}-1`).append("<p>暗</p>");
+          $(`#ankan${huroCount}-2`).append("<p>カ</p>");
+          $(`#ankan${huroCount}-3`).append("<p>ン</p>");
           //手牌表示欄の空のtdを削除してtdタグの総数を3に保つ
           $(`.huro-table${huroCount}-td:empty`).remove();
           break;
@@ -130,6 +133,7 @@ const hand = () => {
   for (let i=1; i<=4; i++) {
     $(`.huro-pai${i}`).click(function() {
       $(this).removeAttr("src")
+      $(`.huro-pai${i}`).next().remove();
       paiId = $(this).attr("id").replaceAll("pai", "")
       $(this).attr("name", paiId)
       var huroList = Array.prototype.slice.call($(`.huro-pai${i}`));
