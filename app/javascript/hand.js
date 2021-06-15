@@ -64,12 +64,12 @@ const hand = () => {
         }; 
       };
     };
-    //暗カン入力モード
+    //暗カン・明カン入力モード
     if (document.getElementById("mode4").checked || document.getElementById("mode5").checked){
       for(let z=1; z<=12; z++){
         if (!$(`#pai${800+z}`).attr("src")) {
           var huroCount = Math.floor((z+2)/3);
-          
+          //入力済の牌を削除
           for (let w=1; w<=3; w++){
             if ($(`#huro-pai${huroCount}-${w} > .huro-pai${huroCount}`).length){
               var obstaclePai = $(`#huro-pai${huroCount}-${w} > .huro-pai${huroCount}`)
@@ -90,6 +90,7 @@ const hand = () => {
             paiId = obstaclePai.attr("id").replaceAll("pai", "");
             obstaclePai.attr("name", paiId);
           };
+          //クリックした牌を３つ自動入力
           $(`.huro-pai${huroCount}`).attr({src: paiSrc, name: paiName});
           //手牌表示欄の牌姿を配列paiListとして抜きだす
           var huroList = Array.prototype.slice.call($(`.huro-pai${huroCount}`));
@@ -97,7 +98,7 @@ const hand = () => {
           var huroEditClassTd = `huro-table${huroCount}-td`;
           document.getElementById("mode4").checked ? huroEditId = `ankan${huroCount}-` : huroEditId = `minkan${huroCount}-`
           sortHand(huroList, huroEditClassTr, huroEditId, huroEditClassTd);
-
+          //見た目ではポンと区別がつかないので、暗カンor明カンを文字で表記
           if (document.getElementById("mode4").checked){
             $(`#ankan${huroCount}-1`).append("<p>暗</p>");
             $(`#ankan${huroCount}-2`).append("<p>カ</p>");
