@@ -34,7 +34,33 @@ ActiveRecord::Schema.define(version: 2021_06_17_133345) do
   end
 
   create_table "hands", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "hand", null: false
+    t.text "pai1"
+    t.text "pai2"
+    t.text "pai3"
+    t.text "pai4"
+    t.text "pai5"
+    t.text "pai6"
+    t.text "pai7"
+    t.text "pai8"
+    t.text "pai9"
+    t.text "pai10"
+    t.text "pai11"
+    t.text "pai12"
+    t.text "pai13"
+    t.text "pai14"
+    t.text "huro1_1"
+    t.text "huro1_2"
+    t.text "huro1_3"
+    t.text "huro2_1"
+    t.text "huro2_2"
+    t.text "huro2_3"
+    t.text "huro3_1"
+    t.text "huro3_2"
+    t.text "huro3_3"
+    t.text "huro4_1"
+    t.text "huro4_2"
+    t.text "huro4_3"
+    t.text "dora"
     t.bigint "status_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

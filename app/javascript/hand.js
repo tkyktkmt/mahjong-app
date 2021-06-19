@@ -178,6 +178,24 @@ const hand = () => {
       editClassTr.append($('<td />', {id: `${editId}${j+1}`, class: `${editClassTd}`}).append(detached));
     }
   };
+
+  $("#submit-btn-hand").click(function(e) {
+    e.preventDefault();
+    const handFormResult = document.getElementById("hand-form");
+    $(`.pai`).each(function(k){
+      var handPaiSrc = $(this).attr('src');
+      $(`#hand_pai${k+1}`).val(`${handPaiSrc}`);
+    });
+    for (let l=1; l<=4; l++) {
+      $(`.huro-pai${l}`).each(function(m){
+        var huroPaiSrc = $(this).attr('src');
+        $(`#hand_huro${l}_${m+1}`).val(`${huroPaiSrc}`);
+      });
+    };
+    var doraPaiSrc = $(".dora").attr("src");
+    $("#hand_dora").val(doraPaiSrc);
+    // handFormResult.submit();
+  });
 };
 
 window.addEventListener("load", hand );
