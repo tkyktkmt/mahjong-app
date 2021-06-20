@@ -1,4 +1,6 @@
 const hand = () => {
+  test = 5 % 1
+  console.log(Math.round(test*10)/10)
   //クリックした牌を入力
   $(".pais").click(function () {
     //クリックした牌の牌画と牌名を取得
@@ -216,16 +218,16 @@ const hand = () => {
       var key = Math.round(handPaiArray[n].name);
       handSamePaiCount[key] = (handSamePaiCount[key])? handSamePaiCount[key] + 1 : 1 ;
       if (handSamePaiCount[key] > 4) { 
-      break;
+       break;
       };
     }
     //赤牌の重複をカウント
     for(var p=0;p< handPaiArray.length;p++) {
-      var redKey = handPaiArray[p].name;
-      if (!(redKey % 1 == 0)){
+      if ((Math.round(handPaiArray[p].name % 1 * 10) / 10 ) == 0.1) {
+        var redKey = handPaiArray[p].name;
         handSamePaiCount[redKey] = (handSamePaiCount[redKey])? handSamePaiCount[redKey] + 1 : 1 ;
         if (handSamePaiCount[redKey] > 1) { 
-          break;
+         break;
         };
       };
     }
