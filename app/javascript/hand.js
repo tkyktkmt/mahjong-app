@@ -182,39 +182,41 @@ const hand = () => {
   $("#submit-btn-hand").click(function(e) {
     e.preventDefault();
     const handFormResult = document.getElementById("hand-form");
-    //validation設定用に手牌総数カウント変数を定義
-    let huroPaiCount = 0
     //非表示フォームに手牌を入力
     $(".pai").each(function(k){
       var handPaiSrc = $(this).attr('src');
       $(`#hand_pai${k+1}`).val(`${handPaiSrc}`);
     });
-    //手牌枚数をhuroPaiCountに加算
-    huroPaiCount = huroPaiCount + ($('.pai').length) - ($('img[src=""].pai').length);
     //非表示フォームに副露牌を入力
     for (let l=1; l<=4; l++) {
       $(`.huro-pai${l}`).each(function(m){
         var huroPaiSrc = $(this).attr('src');
         $(`#hand_huro${l}_${m+1}`).val(`${huroPaiSrc}`);
       });
-      //副露枚数をhuroPaiCountに加算
-      huroPaiCount = huroPaiCount + ($(`.huro-pai${l}`).length) - ($(`img[src=""].huro-pai${l}`).length);
     };
     //非表示フォームにドラを入力
     var doraPaiSrc = $(".dora").attr("src");
     $("#hand_dora").val(doraPaiSrc);
     
     //validation設定
+    //手牌総数カウント変数を定義
+    let huroPaiCount = ($('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').length)
+      - ($('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').not('img[src]').length)
+      - ($('img[src=""].pai').length)
+      - ($('img[src=""].huro-pai1').length) 
+      - ($('img[src=""].huro-pai2').length)
+      - ($('img[src=""].huro-pai3').length) 
+      - ($('img[src=""].huro-pai4').length);
     //手牌の総数は13枚もしくは14枚入力されていなければならない
     if (!(huroPaiCount == 13 || huroPaiCount == 14)) {
       alert(`Error ：手牌の総数は13枚もしくは14枚選択してください`);
     }
     //１副露あたり３枚入力されていなければならない
     else if (
-      !($('img[src=""].huro-pai1').length % 3 == 0 && 
-        $('img[src=""].huro-pai2').length % 3 == 0 && 
-        $('img[src=""].huro-pai3').length % 3 == 0 && 
-        $('img[src=""].huro-pai4').length % 3 == 0 )) {
+      !(($('img[src=""].huro-pai1').length + $('.huro-pai1').not('img[src]').length) % 3 == 0 && 
+        ($('img[src=""].huro-pai2').length + $('.huro-pai2').not('img[src]').length) % 3 == 0 && 
+        ($('img[src=""].huro-pai3').length + $('.huro-pai3').not('img[src]').length) % 3 == 0 && 
+        ($('img[src=""].huro-pai4').length + $('.huro-pai4').not('img[src]').length) % 3 == 0 )) {
       alert(`Error ：副露牌に入力漏れがあります`);
     }
     else {
