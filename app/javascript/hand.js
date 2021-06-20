@@ -182,6 +182,7 @@ const hand = () => {
   $("#submit-btn-hand").click(function(e) {
     e.preventDefault();
     const handFormResult = document.getElementById("hand-form");
+    const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
     //非表示フォームに手牌を入力
     $(".pai").each(function(k){
       var handPaiSrc = $(this).attr('src');
@@ -200,15 +201,36 @@ const hand = () => {
     
     //validation設定
     //手牌総数カウント変数を定義
-    let huroPaiCount = ($('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').length)
-      - ($('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').not('img[src]').length)
-      - ($('img[src=""].pai').length)
-      - ($('img[src=""].huro-pai1').length) 
-      - ($('img[src=""].huro-pai2').length)
-      - ($('img[src=""].huro-pai3').length) 
-      - ($('img[src=""].huro-pai4').length);
+    let handPaiCount = handPaiArea.length
+    - handPaiArea.not('img[src]').length
+    - ($('img[src=""].pai').length)
+    - ($('img[src=""].huro-pai1').length) 
+    - ($('img[src=""].huro-pai2').length)
+    - ($('img[src=""].huro-pai3').length) 
+    - ($('img[src=""].huro-pai4').length);
+    //手牌の重複カウント用に手牌配列を設定
+    let handPaiArray = Array.prototype.slice.call(handPaiArea);
+    let handSamePaiCount = {};
+    //牌の重複をカウント
+    for (var n=0;n< handPaiArray.length;n++) {
+      var key = Math.round(handPaiArray[n].name);
+      handSamePaiCount[key] = (handSamePaiCount[key])? handSamePaiCount[key] + 1 : 1 ;
+      if (handSamePaiCount[key] > 4) { 
+      break;
+      };
+    }
+    //赤牌の重複をカウント
+    for(var p=0;p< handPaiArray.length;p++) {
+      var redKey = handPaiArray[p].name;
+      if (!(redKey % 1 == 0)){
+        handSamePaiCount[redKey] = (handSamePaiCount[redKey])? handSamePaiCount[redKey] + 1 : 1 ;
+        if (handSamePaiCount[redKey] > 1) { 
+          break;
+        };
+      };
+    }
     //手牌の総数は13枚もしくは14枚入力されていなければならない
-    if (!(huroPaiCount == 13 || huroPaiCount == 14)) {
+    if (!(handPaiCount == 13 || handPaiCount == 14)) {
       alert(`Error ：手牌の総数は13枚もしくは14枚選択してください`);
     }
     //１副露あたり３枚入力されていなければならない
@@ -218,6 +240,14 @@ const hand = () => {
         ($('img[src=""].huro-pai3').length + $('.huro-pai3').not('img[src]').length) % 3 == 0 && 
         ($('img[src=""].huro-pai4').length + $('.huro-pai4').not('img[src]').length) % 3 == 0 )) {
       alert(`Error ：副露牌に入力漏れがあります`);
+    }
+    //同じ牌は最大４枚しか入力できない
+    else if (handSamePaiCount[key] > 4) {
+      alert(`Error ：同じ牌は最大４枚しか存在しません`);
+    }
+    //赤牌は各１枚しか入力できない
+    else if (handSamePaiCount[redKey] > 1) { 
+      alert(`Error ：赤牌は１枚ずつしか存在しません`);
     }
     else {
       handFormResult.submit();
