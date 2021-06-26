@@ -9,10 +9,8 @@ class StatusesController < ApplicationController
   def create
     @status = Status.new(status_params)
     if @status.save
-      @status = Status.new(status_params)
-      render :new
+      redirect_to new_status_hand_path(@status.id)
     else
-      @status = Status.new(status_params)
       render :new
     end
   end

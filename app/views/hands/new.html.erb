@@ -1,96 +1,153 @@
 <div class= "hand-input">
   <h1 class="hand-input-title">手牌入力画面</h1>
   <div class="hand-choice">
-    <div class="pai-list">
-      <%= image_tag "pai-images/man1-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/man2-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/man3-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/man4-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/man5-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/man6-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/man7-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/man8-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/man9-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/aka3-66-90-s-emb.png" %>
+    <div class="pai-list" >
+      <%= image_tag "pai-images/man1-66-90-s-emb.png", alt:"一萬", name:1, id:"man1", class:"pais" %>
+      <%= image_tag "pai-images/man2-66-90-s-emb.png", alt:"二萬", name:2, id:"man2", class:"pais" %>
+      <%= image_tag "pai-images/man3-66-90-s-emb.png", alt:"三萬", name:3, id:"man3", class:"pais" %>
+      <%= image_tag "pai-images/man4-66-90-s-emb.png", alt:"四萬", name:4, id:"man4", class:"pais" %>
+      <%= image_tag "pai-images/man5-66-90-s-emb.png", alt:"五萬", name:5, id:"man5", class:"pais" %>
+      <%= image_tag "pai-images/man6-66-90-s-emb.png", alt:"六萬", name:6, id:"man6", class:"pais" %>
+      <%= image_tag "pai-images/man7-66-90-s-emb.png", alt:"七萬", name:7, id:"man7", class:"pais" %>
+      <%= image_tag "pai-images/man8-66-90-s-emb.png", alt:"八萬", name:8, id:"man8", class:"pais" %>
+      <%= image_tag "pai-images/man9-66-90-s-emb.png", alt:"九萬", name:9, id:"man9", class:"pais" %>
+      <%= image_tag "pai-images/aka3-66-90-s-emb.png", alt:"赤五萬", name:5.1, id:"man0", class:"pais" %>
       <br>
-      <%= image_tag "pai-images/pin1-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/pin2-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/pin3-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/pin4-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/pin5-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/pin6-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/pin7-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/pin8-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/pin9-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/aka1-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/pin1-66-90-s-emb.png", alt:"一筒", name:11, id:"pin1", class:"pais"%>
+      <%= image_tag "pai-images/pin2-66-90-s-emb.png", alt:"二筒", name:12, id:"pin2", class:"pais"%>
+      <%= image_tag "pai-images/pin3-66-90-s-emb.png", alt:"三筒", name:13, id:"pin3", class:"pais"%>
+      <%= image_tag "pai-images/pin4-66-90-s-emb.png", alt:"四筒", name:14, id:"pin4", class:"pais"%>
+      <%= image_tag "pai-images/pin5-66-90-s-emb.png", alt:"五筒", name:15, id:"pin5", class:"pais"%>
+      <%= image_tag "pai-images/pin6-66-90-s-emb.png", alt:"六筒", name:16, id:"pin6", class:"pais"%>
+      <%= image_tag "pai-images/pin7-66-90-s-emb.png", alt:"七筒", name:17, id:"pin7", class:"pais"%>
+      <%= image_tag "pai-images/pin8-66-90-s-emb.png", alt:"八筒", name:18, id:"pin8", class:"pais"%>
+      <%= image_tag "pai-images/pin9-66-90-s-emb.png", alt:"九筒", name:19, id:"pin9", class:"pais"%>
+      <%= image_tag "pai-images/aka1-66-90-s-emb.png", alt:"赤五筒", name:15.1, id:"pin0", class:"pais"%>
       <br>
-      <%= image_tag "pai-images/sou1-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/sou2-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/sou3-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/sou4-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/sou5-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/sou6-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/sou7-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/sou8-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/sou9-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/aka2-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/sou1-66-90-s-emb.png", alt:"一索", name:21, id:"sou1", class:"pais"%>
+      <%= image_tag "pai-images/sou2-66-90-s-emb.png", alt:"二索", name:22, id:"sou2", class:"pais"%>
+      <%= image_tag "pai-images/sou3-66-90-s-emb.png", alt:"三索", name:23, id:"sou3", class:"pais"%>
+      <%= image_tag "pai-images/sou4-66-90-s-emb.png", alt:"四索", name:24, id:"sou4", class:"pais"%>
+      <%= image_tag "pai-images/sou5-66-90-s-emb.png", alt:"五索", name:25, id:"sou5", class:"pais"%>
+      <%= image_tag "pai-images/sou6-66-90-s-emb.png", alt:"六索", name:26, id:"sou6", class:"pais"%>
+      <%= image_tag "pai-images/sou7-66-90-s-emb.png", alt:"七索", name:27, id:"sou7", class:"pais"%>
+      <%= image_tag "pai-images/sou8-66-90-s-emb.png", alt:"八索", name:28, id:"sou8", class:"pais"%>
+      <%= image_tag "pai-images/sou9-66-90-s-emb.png", alt:"九索", name:29, id:"sou9", class:"pais"%>
+      <%= image_tag "pai-images/aka2-66-90-s-emb.png", alt:"赤五索", name:25.1, id:"sou0", class:"pais"%>
       <br>
-      <%= image_tag "pai-images/ji1-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/ji2-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/ji3-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/ji4-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/ji6-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/ji5-66-90-s-emb.png" %>
-      <%= image_tag "pai-images/ji7-66-90-s-emb.png" %>
+      <%= image_tag "pai-images/ji1-66-90-s-emb.png", alt:"東", name:41, id:"ji1", class:"pais"%>
+      <%= image_tag "pai-images/ji2-66-90-s-emb.png", alt:"南", name:42, id:"ji2", class:"pais"%>
+      <%= image_tag "pai-images/ji3-66-90-s-emb.png", alt:"西", name:43, id:"ji3", class:"pais"%>
+      <%= image_tag "pai-images/ji4-66-90-s-emb.png", alt:"北", name:44, id:"ji4", class:"pais"%>
+      <%= image_tag "pai-images/ji6-66-90-s-emb.png", alt:"白", name:45, id:"ji5", class:"pais"%>
+      <%= image_tag "pai-images/ji5-66-90-s-emb.png", alt:"發", name:46, id:"ji6", class:"pais"%>
+      <%= image_tag "pai-images/ji7-66-90-s-emb.png", alt:"中", name:47, id:"ji7", class:"pais"%>
       <br>
     </div>
     <div class="btn-group">
       <label class="input-mode-btn" id="mode1-label" >手牌入力
-        <input type="radio" name="input-mode" id="mode1" class="hidden">
+        <input type="radio", name="input-mode" id="mode1" class="hidden" checked>
       </label>
       <label class="input-mode-btn" id="mode2-label" >ポン
-        <input type="radio" name="input-mode" id="mode2" class="hidden">
+        <input type="radio", name="input-mode" id="mode2" class="hidden">
       </label>
       <label class="input-mode-btn" id="mode3-label" >チー
-        <input type="radio" name="input-mode" id="mode3" class="hidden">
+        <input type="radio", name="input-mode" id="mode3" class="hidden">
       </label>
       <label class="input-mode-btn" id="mode4-label" >暗カン
-        <input type="radio" name="input-mode" id="mode4" class="hidden">
+        <input type="radio", name="input-mode" id="mode4" class="hidden">
       </label>
       <label class="input-mode-btn" id="mode5-label" >明カン
-        <input type="radio" name="input-mode" id="mode5" class="hidden">
+        <input type="radio", name="input-mode" id="mode5" class="hidden">
       </label>
       <label class="input-mode-btn" id="mode6-label">ドラ入力
-        <input type="radio" name="input-mode" id="mode6"  class="hidden" >
+        <input type="radio", name="input-mode" id="mode6"  class="hidden" >
       </label>
     </div>
   </div>
   <div class="hand-info">
     <div class="dora-wrap">
-      ドラ:<%= image_tag "pai-images/ji5-66-90-s-emb.png", :size => '19x27', class:"dora" %>
+      ドラ:<%= image_tag "", size: "19x27", class:"dora", name:"dora", id:"dora", alt:"" %>
     </div>
-    <%#= form_with model: "#" , url: "#" , local: true do |f| %>
-    <table class="hand-table">
-      <tr>
-        <td  id="pai1"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai2"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai3"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai4"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai5"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai6"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai7"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai8"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai9"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai10"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai11"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai12"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai13"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
-        <td  id="pai14"class="pai"><%= image_tag "pai-images/ji6-66-90-s-emb.png" %></td>
+    <div class="huro-info">
+      <table class="huro-table1" id="huro-table1">
+        <tr class="huro-table1-tr">
+          <td class="huro-table1-td" id="huro-pai1-1"><%= image_tag "", id:"pai801", name:801, class:"huro-pai1" %></td>
+          <td class="huro-table1-td" id="huro-pai1-2"><%= image_tag "", id:"pai802", name:802, class:"huro-pai1" %></td>
+          <td class="huro-table1-td" id="huro-pai1-3"><%= image_tag "", id:"pai803", name:803, class:"huro-pai1" %></td>
+        </tr>
+      </table>
+      <table class="huro-table2" id="huro-table2">
+        <tr class="huro-table2-tr">
+          <td class="huro-table2-td" id="huro-pai2-1"><%= image_tag "", id:"pai804", name:804, class:"huro-pai2" %></td>
+          <td class="huro-table2-td" id="huro-pai2-2"><%= image_tag "", id:"pai805", name:805, class:"huro-pai2" %></td>
+          <td class="huro-table2-td" id="huro-pai2-3"><%= image_tag "", id:"pai806", name:806, class:"huro-pai2" %></td>
+        </tr>
+      </table>
+      <table class="huro-table3" id="huro-table3">
+        <tr class="huro-table3-tr">
+          <td class="huro-table3-td" id="huro-pai3-1"><%= image_tag "", id:"pai807", name:807, class:"huro-pai3" %></td>
+          <td class="huro-table3-td" id="huro-pai3-2"><%= image_tag "", id:"pai808", name:808, class:"huro-pai3" %></td>
+          <td class="huro-table3-td" id="huro-pai3-3"><%= image_tag "", id:"pai809", name:809, class:"huro-pai3" %></td>
+        </tr>
+      </table>
+      <table class="huro-table4" id="huro-table4">
+        <tr class="huro-table4-tr">
+          <td class="huro-table4-td" id="huro-pai4-1"><%= image_tag "", id:"pai810", name:810, class:"huro-pai4" %></td>
+          <td class="huro-table4-td" id="huro-pai4-2"><%= image_tag "", id:"pai811", name:811, class:"huro-pai4" %></td>
+          <td class="huro-table4-td" id="huro-pai4-3"><%= image_tag "", id:"pai812", name:812, class:"huro-pai4" %></td>
+        </tr>
+      </table>
+    </div>
+    <table class="hand-table" id="hand-table">
+      <tr class="hand-table-tr">
+        <td class="hand-table-td" id="pai1"><%= image_tag "", id:"pai901", name:901, class:"pai" %></td>
+        <td class="hand-table-td" id="pai2"><%= image_tag "", id:"pai902", name:902, class:"pai" %></td>
+        <td class="hand-table-td" id="pai3"><%= image_tag "", id:"pai903", name:903, class:"pai" %></td>
+        <td class="hand-table-td" id="pai4"><%= image_tag "", id:"pai904", name:904, class:"pai" %></td>
+        <td class="hand-table-td" id="pai5"><%= image_tag "", id:"pai905", name:905, class:"pai" %></td>
+        <td class="hand-table-td" id="pai6"><%= image_tag "", id:"pai906", name:906, class:"pai" %></td>
+        <td class="hand-table-td" id="pai7"><%= image_tag "", id:"pai907", name:907, class:"pai" %></td>
+        <td class="hand-table-td" id="pai8"><%= image_tag "", id:"pai908", name:908, class:"pai" %></td>
+        <td class="hand-table-td" id="pai9"><%= image_tag "", id:"pai909", name:909, class:"pai" %></td>
+        <td class="hand-table-td" id="pai10"><%= image_tag "", id:"pai910", name:910, class:"pai" %></td>
+        <td class="hand-table-td" id="pai11"><%= image_tag "", id:"pai911", name:911, class:"pai" %></td>
+        <td class="hand-table-td" id="pai12"><%= image_tag "", id:"pai912", name:912, class:"pai" %></td>
+        <td class="hand-table-td" id="pai13"><%= image_tag "", id:"pai913", name:913, class:"pai" %></td>
+        <td class="hand-table-td" id="pai14"><%= image_tag "", id:"pai914", name:914, class:"pai" %></td>
       </tr>
     </table>
-    <div class="submit-btn-wrap">
-      <%= link_to "打牌候補結果へ", hand_path, class: "submit-btn" %>
-    </div>
-    <%# end %>
   </div>
+  <%= form_with model: [@status, @hand],url: status_hands_path ,id: "hand-form", local: true  do |f| %>
+        <%= f.hidden_field :pai1 %>
+        <%= f.hidden_field :pai2 %>
+        <%= f.hidden_field :pai3 %>
+        <%= f.hidden_field :pai4 %>
+        <%= f.hidden_field :pai5 %>
+        <%= f.hidden_field :pai6 %>
+        <%= f.hidden_field :pai7 %>
+        <%= f.hidden_field :pai8 %>
+        <%= f.hidden_field :pai9 %>
+        <%= f.hidden_field :pai10 %>
+        <%= f.hidden_field :pai11 %>
+        <%= f.hidden_field :pai12 %>
+        <%= f.hidden_field :pai13 %>
+        <%= f.hidden_field :pai14 %>
+        <%= f.hidden_field :huro1_1 %>
+        <%= f.hidden_field :huro1_2 %>
+        <%= f.hidden_field :huro1_3 %>
+        <%= f.hidden_field :huro2_1 %>
+        <%= f.hidden_field :huro2_2 %>
+        <%= f.hidden_field :huro2_3 %>
+        <%= f.hidden_field :huro3_1 %>
+        <%= f.hidden_field :huro3_2 %>
+        <%= f.hidden_field :huro3_3 %>
+        <%= f.hidden_field :huro4_1 %>
+        <%= f.hidden_field :huro4_2 %>
+        <%= f.hidden_field :huro4_3 %>
+        <%= f.hidden_field :dora %>
+      <div class="submit-btn-wrap">
+        <%= f.submit "打牌候補結果へ", class: "submit-btn", id: "submit-btn-hand" %>
+      </div>
+  <% end %>
 </div>

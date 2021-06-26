@@ -147,7 +147,7 @@ const status = () => {
           for( let i=0; i<Object.entries(ronHashOya).length; i++) {
             let result = (Object.values(ronHashOya)[i] + (stat.stacking_bar * 600) + (stat.deposit * 1) - (scoreGapWest.innerHTML * 1));
             if (result > 0) {
-              westRonFromSouth.innerHTML = (Object.keys(ronHashOya)[i]);
+              westRonFromWest.innerHTML = (Object.keys(ronHashOya)[i]);
               break;
             };
           };
