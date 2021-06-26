@@ -1,6 +1,4 @@
 const hand = () => {
-  test = 5 % 1
-  console.log(Math.round(test*10)/10)
   //クリックした牌を入力
   $(".pais").click(function () {
     //クリックした牌の牌画と牌名を取得
@@ -231,6 +229,22 @@ const hand = () => {
         };
       };
     }
+    //カンの重複をカウント
+    outer:
+    for (var q=1;q<=4;q++) {
+      debugger;
+      if ($(`#ankan${q}-1, #minkan${q}-1`).length) {
+        for (var r=0;r< handPaiArray.length;r++) {
+          if (Math.round(handPaiArray[r].name) == Math.round($(`#ankan${q}-1, #minkan${q}-1`).children(`.huro-pai${q}`).attr("name"))) {
+            var kanKey = Math.round(handPaiArray[r].name)
+            handSamePaiCount[kanKey] = (handSamePaiCount[kanKey])? handSamePaiCount[kanKey] + 1 : 1 ;
+            if (handSamePaiCount[kanKey] > 3) { 
+            break outer;
+            };
+          };
+        }
+      };
+    }
     //手牌の総数は13枚もしくは14枚入力されていなければならない
     if (!(handPaiCount == 13 || handPaiCount == 14)) {
       alert(`Error ：手牌の総数は13枚もしくは14枚選択してください`);
@@ -250,6 +264,10 @@ const hand = () => {
     //赤牌は各１枚しか入力できない
     else if (handSamePaiCount[redKey] > 1) { 
       alert(`Error ：赤牌は１枚ずつしか存在しません`);
+    }
+    //同じ牌は最大４枚しか入力できない(カンの場合)
+    else if (handSamePaiCount[kanKey] > 3) { 
+      alert(`Error ：同じ牌は最大４枚しか存在しません`);
     }
     else {
       handFormResult.submit();
