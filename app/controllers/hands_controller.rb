@@ -7,6 +7,8 @@ class HandsController < ApplicationController
     @status = Status.find(params[:status_id])
     @hand = @status.hands.new(hand_params)
     @hand.save
+    @status = Status.find(params[:status_id])
+    @hand = @status.hands.new(hand_params)
     render :new
   end
 
