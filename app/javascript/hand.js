@@ -232,7 +232,6 @@ const hand = () => {
     //カンの重複をカウント
     outer:
     for (var q=1;q<=4;q++) {
-      debugger;
       if ($(`#ankan${q}-1, #minkan${q}-1`).length) {
         for (var r=0;r< handPaiArray.length;r++) {
           if (Math.round(handPaiArray[r].name) == Math.round($(`#ankan${q}-1, #minkan${q}-1`).children(`.huro-pai${q}`).attr("name"))) {
@@ -270,9 +269,53 @@ const hand = () => {
       alert(`Error ：同じ牌は最大４枚しか存在しません`);
     }
     else {
+      shantenCheck()
       handFormResult.submit();
     };
   });
+  
+  //シャンテン数算出
+  function shantenCheck() {
+    const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
+    let handPaiArray = Array.prototype.slice.call(handPaiArea);
+    
+    var toitsuCount = 0;
+    var shantenCount = 0;
+    var syantenCountMax=8;
+    
+    var manTatsuCount;
+    var pinTatsuCount;
+    var souTatsuCount;
+    var jiTatsuCount;
+    var koutsuCount=0;
+   
+    //マンズ関連
+    var manMentsuMax=0;
+    var manTatsuMax=0;
+
+    //ピンズ関連
+    var pinMentsuMax=0;
+    var pinTatsuMax=0;
+
+    //ソーズ関連
+    var souMentsuMax=0;
+    var souTatsuMax=0;
+
+	  //字牌関連（ターツのみ）
+    var jiTatsuMax=0;
+    
+    var hurotatsuCount = 0;
+    
+    
+    hurotatsuCheck()
+    
+    //副露数算出
+    function hurotatsuCheck() {
+      hurotatsuCount += $('.huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').filter('img[src]').not('img[src=""]').length / 3; 
+      //手牌配列から副露牌を削除
+      handPaiArray.splice(0,12);
+    };
+  };
 };
 
 window.addEventListener("load", hand );
