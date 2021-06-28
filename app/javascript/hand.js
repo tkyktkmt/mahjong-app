@@ -269,18 +269,18 @@ const hand = () => {
       alert(`Error ：同じ牌は最大４枚しか存在しません`);
     }
     else {
-      shantenCheck()
+      syantenCheck();
       handFormResult.submit();
     };
   });
   
   //シャンテン数算出
-  function shantenCheck() {
+  function syantenCheck() {
     const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
     let handPaiArray = Array.prototype.slice.call(handPaiArea);
     
     var toitsuCount = 0;
-    var shantenCount = 0;
+    var syantenCount = 0;
     var syantenCountMax=8;
     
     var manTatsuCount;
@@ -304,16 +304,30 @@ const hand = () => {
 	  //字牌関連（ターツのみ）
     var jiTatsuMax=0;
     
-    var hurotatsuCount = 0;
-    
+    var huroTatsuCount = 0;
+    var isolationKoutsuCount = 0;
     
     hurotatsuCheck()
-    
+    isolationKoutsuCheck()
+
     //副露数算出
     function hurotatsuCheck() {
-      hurotatsuCount += $('.huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').filter('img[src]').not('img[src=""]').length / 3; 
+      huroTatsuCount += $('.huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').filter('img[src]').not('img[src=""]').length / 3; 
       //手牌配列から副露牌を削除
       handPaiArray.splice(0,12);
+    };
+     //完全孤立コーツ数算出
+    function isolationKoutsuCheck(){
+      //自牌の孤立コーツカウント(門前)
+      for (var t=0;t<handPaiArray.length-2;t++) {
+        if (handPaiArray[t].name>=41 && handPaiArray[t].name<=47 &&
+            handPaiArray[t].name == handPaiArray[t+1].name &&
+            handPaiArray[t].name == handPaiArray[t+2].name) {
+            handPaiArray.splice(t,3);
+            t--;
+            isolationKoutsuCount++;
+        };
+      };
     };
   };
 };
