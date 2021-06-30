@@ -316,19 +316,35 @@ const hand = () => {
       //手牌配列から副露牌を削除
       handPaiArray.splice(0,12);
     };
-     //完全孤立コーツ数算出
+    //完全孤立コーツ数算出
     function isolationKoutsuCheck(){
       //自牌の孤立コーツカウント(門前)
       for (var t=0;t<handPaiArray.length-2;t++) {
-        if (handPaiArray[t].name>=41 && handPaiArray[t].name<=47 &&
-            handPaiArray[t].name == handPaiArray[t+1].name &&
-            handPaiArray[t].name == handPaiArray[t+2].name) {
-            handPaiArray.splice(t,3);
-            t--;
+        if (handPaiArray[t].name>=61 && handPaiArray[t].name<=67 &&
+          $(`img[name="${Math.round(handPaiArray[t].name)}"].pai`).length >= 3) {
+          handPaiArray.splice(t,3);
+          t--;
+          isolationKoutsuCount++;
+        };
+      };
+      //数牌の孤立コーツカウント(門前）
+      for (var u=0;u<=40;u+=20) {
+        //マンズ→ソーズ→ピンズの順で配列をチェック
+        for (var v=0;v<handPaiArray.length-2;v++) {
+          if (handPaiArray[v].name>=u+1 && handPaiArray[v].name<=u+9 &&
+            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length >= 3 &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-1}"],[name="${Math.round(handPaiArray[v].name)-1+0.1}"]`).length) &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-2}"],[name="${Math.round(handPaiArray[v].name)-2+0.1}"]`).length) &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length) &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length)) {
+            handPaiArray.splice(v,3);
+            v--;
             isolationKoutsuCount++;
+          };
         };
       };
     };
+    
   };
 };
 
