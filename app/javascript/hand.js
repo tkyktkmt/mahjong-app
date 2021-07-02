@@ -307,10 +307,12 @@ const hand = () => {
     var huroTatsuCount = 0;
     var isolationKoutsuCount = 0;
     var isolationSyuntsuCount = 0;
+    var isolationPaiCount = 0;
     
     hurotatsuCheck()
     isolationKoutsuCheck()
     isolationSyuntsuCheck()
+    isolationPaiCheck()
 
     //副露数算出
     function hurotatsuCheck() {
@@ -365,6 +367,30 @@ const hand = () => {
             v--;
             isolationSyuntsuCount+=2;
           };
+        };
+      };
+    };
+    // //完全孤立牌数算出
+    function isolationPaiCheck(){
+      //自牌の孤立牌カウント
+      for (var a=0;a<handPaiArray.length;a++) {
+        if (handPaiArray[a].name>=61 && handPaiArray[a].name<=67 &&
+          $(`img[name="${Math.round(handPaiArray[a].name)}"].pai`).length == 1) {
+          handPaiArray.splice(a,1);
+          a--;
+          isolationPaiCount++;
+        };
+      };
+      // 数牌の孤立牌カウント
+      for (var b=0;b<handPaiArray.length;b++) {
+        if ($(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)}"],[name="${Math.round(handPaiArray[b].name)+0.1}"]`).length == 1 &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)-1}"],[name="${Math.round(handPaiArray[b].name)-1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)-2}"],[name="${Math.round(handPaiArray[b].name)-2+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)+1}"],[name="${Math.round(handPaiArray[b].name)+1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)+2}"],[name="${Math.round(handPaiArray[b].name)+2+0.1}"]`).length)) {
+          handPaiArray.splice(b,1);
+          b--;
+          isolationPaiCount++;
         };
       };
     };
