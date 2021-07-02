@@ -381,6 +381,18 @@ const hand = () => {
           isolationPaiCount++;
         };
       };
+      // 数牌の孤立牌カウント
+      for (var b=0;b<handPaiArray.length;b++) {
+        if ($(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)}"],[name="${Math.round(handPaiArray[b].name)+0.1}"]`).length == 1 &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)-1}"],[name="${Math.round(handPaiArray[b].name)-1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)-2}"],[name="${Math.round(handPaiArray[b].name)-2+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)+1}"],[name="${Math.round(handPaiArray[b].name)+1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[b].name)+2}"],[name="${Math.round(handPaiArray[b].name)+2+0.1}"]`).length)) {
+          handPaiArray.splice(b,1);
+          b--;
+          isolationPaiCount++;
+        };
+      };
     };
   };
 };
