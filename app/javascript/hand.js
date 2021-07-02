@@ -404,6 +404,17 @@ const hand = () => {
           return 1
         };
       };
+      // 数牌の孤立トイツチェック
+      for (var d=0;d<handPaiArray.length;d++) {
+        if ($(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)}"],[name="${Math.round(handPaiArray[d].name)+0.1}"]`).length == 2 &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)-1}"],[name="${Math.round(handPaiArray[d].name)-1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)-2}"],[name="${Math.round(handPaiArray[d].name)-2+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)+1}"],[name="${Math.round(handPaiArray[d].name)+1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)+2}"],[name="${Math.round(handPaiArray[d].name)+2+0.1}"]`).length)) {
+          return 1    
+        };
+      };
+      return 0
     };
   };
 };
