@@ -313,6 +313,7 @@ const hand = () => {
     isolationKoutsuCheck()
     isolationSyuntsuCheck()
     isolationPaiCheck()
+    isolationToitsuCheck()
 
     //副露数算出
     function hurotatsuCheck() {
@@ -391,6 +392,16 @@ const hand = () => {
           handPaiArray.splice(b,1);
           b--;
           isolationPaiCount++;
+        };
+      };
+    };
+    //完全孤立トイツの有無チェック(有：return1  無：return0)
+    function isolationToitsuCheck() {
+      //自牌の孤立トイツチェック
+      for (var c=0;c<handPaiArray.length;c++) {
+        if (handPaiArray[c].name>=61 && handPaiArray[c].name<=67 &&
+          $(`img[name="${Math.round(handPaiArray[c].name)}"].pai`).length == 2) {
+          return 1
         };
       };
     };
