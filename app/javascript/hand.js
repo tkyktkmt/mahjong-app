@@ -306,9 +306,11 @@ const hand = () => {
     
     var huroTatsuCount = 0;
     var isolationKoutsuCount = 0;
+    var isolationSyuntsuCount = 0;
     
     hurotatsuCheck()
     isolationKoutsuCheck()
+    isolationSyuntsuCheck()
 
     //副露数算出
     function hurotatsuCheck() {
@@ -319,7 +321,7 @@ const hand = () => {
     //完全孤立コーツ数算出
     function isolationKoutsuCheck(){
       //自牌の孤立コーツカウント(門前)
-      for (var t=0;t<handPaiArray.length-2;t++) {
+      for (var t=0;t<handPaiArray.length;t++) {
         if (handPaiArray[t].name>=61 && handPaiArray[t].name<=67 &&
           $(`img[name="${Math.round(handPaiArray[t].name)}"].pai`).length >= 3) {
           handPaiArray.splice(t,3);
@@ -328,23 +330,44 @@ const hand = () => {
         };
       };
       //数牌の孤立コーツカウント(門前）
-      for (var u=0;u<=40;u+=20) {
-        //マンズ→ソーズ→ピンズの順で配列をチェック
-        for (var v=0;v<handPaiArray.length-2;v++) {
-          if (handPaiArray[v].name>=u+1 && handPaiArray[v].name<=u+9 &&
-            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length >= 3 &&
-            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-1}"],[name="${Math.round(handPaiArray[v].name)-1+0.1}"]`).length) &&
-            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-2}"],[name="${Math.round(handPaiArray[v].name)-2+0.1}"]`).length) &&
-            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length) &&
-            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length)) {
+      for (var u=0;u<handPaiArray.length;u++) {
+        if ($(`img.pai`).filter(`[name="${Math.round(handPaiArray[u].name)}"],[name="${Math.round(handPaiArray[u].name)+0.1}"]`).length >= 3 &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[u].name)-1}"],[name="${Math.round(handPaiArray[u].name)-1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[u].name)-2}"],[name="${Math.round(handPaiArray[u].name)-2+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[u].name)+1}"],[name="${Math.round(handPaiArray[u].name)+1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[u].name)+2}"],[name="${Math.round(handPaiArray[u].name)+2+0.1}"]`).length)) {
+          handPaiArray.splice(u,3);
+          u--;
+          isolationKoutsuCount++;
+        };
+      };
+    };
+    //完全孤立シュンツ数算出
+    function isolationSyuntsuCheck(){
+      for (var v=0;v<handPaiArray.length;v++) {
+        if ((!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-1}"],[name="${Math.round(handPaiArray[v].name)-1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-2}"],[name="${Math.round(handPaiArray[v].name)-2+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+3}"],[name="${Math.round(handPaiArray[v].name)+3+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+4}"],[name="${Math.round(handPaiArray[v].name)+4+0.1}"]`).length)) {
+          //一盃口でない場合
+          if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 1 &&
+            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 1 &&
+            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 1) {
             handPaiArray.splice(v,3);
             v--;
-            isolationKoutsuCount++;
+            isolationSyuntsuCount++;
+          }
+          //一盃口の場合
+          else if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 2 &&
+            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 2 &&
+            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 2) {
+            handPaiArray.splice(v,6);
+            v--;
+            isolationSyuntsuCount+=2;
           };
         };
       };
     };
-    
   };
 };
 
