@@ -320,6 +320,13 @@ const hand = () => {
     //孤立トイツの有無をチェック(ある場合は「1」、無い場合は「0」が格納)
     var isolationToitsuExistence = isolationToitsuCheck();
 
+    //マンズピンズソーズ字牌の各々の有無をチェック(ある場合は「牌数」、無い場合は「0」が格納)
+    var manExistence = 0;
+    var pinExistence = 0;
+    var souExistence = 0;
+    var jiExistence = 0;
+    [manExistence, pinExistence, souExistence, jiExistence] = existenceCheck();
+
     //副露数算出
     function huroMentsuCheck() {
       huroMentsuCount += $('.huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').filter('img[src]').not('img[src=""]').length / 3; 
@@ -424,6 +431,24 @@ const hand = () => {
         };
       };
       return 0;
+    };
+    //マンズピンズソーズ字牌の有無チェック
+    function existenceCheck() {
+      for (var e=0;e<handPaiArray.length;e++) {
+        if (handPaiArray[e].name>=1 && handPaiArray[e].name<=9) {
+          manExistence++
+        }
+        else if (handPaiArray[e].name>=21 && handPaiArray[e].name<=29) {
+          pinExistence++
+        }
+        else if (handPaiArray[e].name>=41 && handPaiArray[e].name<=49) {
+          souExistence++
+        }
+        else if (handPaiArray[e].name>=61 && handPaiArray[e].name<=67) {
+          jiExistence++
+        };
+      };
+      return [manExistence, pinExistence, souExistence, jiExistence];
     };
   };
 };
