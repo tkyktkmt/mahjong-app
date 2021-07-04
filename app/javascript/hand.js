@@ -304,21 +304,28 @@ const hand = () => {
 	  //字牌関連（ターツのみ）
     var jiTatsuMax=0;
     
-    var huroTatsuCount = 0;
+    var huroMentsuCount = 0;
     var isolationKoutsuCount = 0;
     var isolationSyuntsuCount = 0;
     var isolationPaiCount = 0;
     
-    hurotatsuCheck()
-    isolationKoutsuCheck()
-    isolationSyuntsuCheck()
-    isolationPaiCheck()
+    //孤立メンツ、孤立牌はあらかじめ抜いておく
+    var huroMentsuCount = huroMentsuCheck();
+    var isolationKoutsuCount = isolationKoutsuCheck();
+    var isolationSyuntsuCount = isolationSyuntsuCheck();
+    var isolationPaiCount = isolationPaiCheck();
+    //孤立のメンツ数をカウント
+    var isolateMentsuCount = huroMentsuCount + isolationKoutsuCount + isolationSyuntsuCount;
+    
+    //孤立トイツの有無をチェック(ある場合は「1」、無い場合は「0」が格納)
+    var isolationToitsuExistence = isolationToitsuCheck();
 
     //副露数算出
-    function hurotatsuCheck() {
-      huroTatsuCount += $('.huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').filter('img[src]').not('img[src=""]').length / 3; 
+    function huroMentsuCheck() {
+      huroMentsuCount += $('.huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').filter('img[src]').not('img[src=""]').length / 3; 
       //手牌配列から副露牌を削除
       handPaiArray.splice(0,12);
+      return huroMentsuCount;
     };
     //完全孤立コーツ数算出
     function isolationKoutsuCheck(){
@@ -343,6 +350,7 @@ const hand = () => {
           isolationKoutsuCount++;
         };
       };
+      return isolationKoutsuCount;
     };
     //完全孤立シュンツ数算出
     function isolationSyuntsuCheck(){
@@ -369,6 +377,7 @@ const hand = () => {
           };
         };
       };
+      return isolationSyuntsuCount;
     };
     // //完全孤立牌数算出
     function isolationPaiCheck(){
@@ -393,6 +402,28 @@ const hand = () => {
           isolationPaiCount++;
         };
       };
+      return isolationPaiCount;
+    };
+    //完全孤立トイツの有無チェック(有：return1  無：return0)
+    function isolationToitsuCheck() {
+      //自牌の孤立トイツチェック
+      for (var c=0;c<handPaiArray.length;c++) {
+        if (handPaiArray[c].name>=61 && handPaiArray[c].name<=67 &&
+          $(`img[name="${Math.round(handPaiArray[c].name)}"].pai`).length == 2) {
+          return 1;
+        };
+      };
+      // 数牌の孤立トイツチェック
+      for (var d=0;d<handPaiArray.length;d++) {
+        if ($(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)}"],[name="${Math.round(handPaiArray[d].name)+0.1}"]`).length == 2 &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)-1}"],[name="${Math.round(handPaiArray[d].name)-1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)-2}"],[name="${Math.round(handPaiArray[d].name)-2+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)+1}"],[name="${Math.round(handPaiArray[d].name)+1+0.1}"]`).length) &&
+          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[d].name)+2}"],[name="${Math.round(handPaiArray[d].name)+2+0.1}"]`).length)) {
+          return 1;    
+        };
+      };
+      return 0;
     };
   };
 };
