@@ -280,8 +280,8 @@ const hand = () => {
     let handPaiArray = Array.prototype.slice.call(handPaiArea);
     
     var toitsuCount = 0;
-    var syantenCount = 0;
-    var syantenCountMax=8;
+    var zanteiSyantenCount = 0;
+    var syantenCount=8;
     
     var manTatsuCount;
     var pinTatsuCount;
@@ -386,7 +386,7 @@ const hand = () => {
       };
       return isolationSyuntsuCount;
     };
-    // //完全孤立牌数算出
+    //完全孤立牌数算出
     function isolationPaiCheck(){
       //自牌の孤立牌カウント
       for (var a=0;a<handPaiArray.length;a++) {
