@@ -280,8 +280,8 @@ const hand = () => {
     let handPaiArray = Array.prototype.slice.call(handPaiArea);
     
     var toitsuCount = 0;
-    var syantenCount = 0;
-    var syantenCountMax=8;
+    var zanteiSyantenCount = 0;
+    var syantenCount=8;
     
     var manTatsuCount;
     var pinTatsuCount;
@@ -319,6 +319,13 @@ const hand = () => {
     
     //孤立トイツの有無をチェック(ある場合は「1」、無い場合は「0」が格納)
     var isolationToitsuExistence = isolationToitsuCheck();
+
+    //マンズピンズソーズ字牌の各々の有無をチェック(ある場合は「牌数」、無い場合は「0」が格納)
+    var manExistence = 0;
+    var pinExistence = 0;
+    var souExistence = 0;
+    var jiExistence = 0;
+    [manExistence, pinExistence, souExistence, jiExistence] = existenceCheck();
 
     //副露数算出
     function huroMentsuCheck() {
@@ -379,7 +386,7 @@ const hand = () => {
       };
       return isolationSyuntsuCount;
     };
-    // //完全孤立牌数算出
+    //完全孤立牌数算出
     function isolationPaiCheck(){
       //自牌の孤立牌カウント
       for (var a=0;a<handPaiArray.length;a++) {
@@ -424,6 +431,24 @@ const hand = () => {
         };
       };
       return 0;
+    };
+    //マンズピンズソーズ字牌の有無チェック
+    function existenceCheck() {
+      for (var e=0;e<handPaiArray.length;e++) {
+        if (handPaiArray[e].name>=1 && handPaiArray[e].name<=9) {
+          manExistence++
+        }
+        else if (handPaiArray[e].name>=21 && handPaiArray[e].name<=29) {
+          pinExistence++
+        }
+        else if (handPaiArray[e].name>=41 && handPaiArray[e].name<=49) {
+          souExistence++
+        }
+        else if (handPaiArray[e].name>=61 && handPaiArray[e].name<=67) {
+          jiExistence++
+        };
+      };
+      return [manExistence, pinExistence, souExistence, jiExistence];
     };
   };
 };
