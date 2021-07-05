@@ -326,6 +326,20 @@ const hand = () => {
     var souExistence = 0;
     var jiExistence = 0;
     [manExistence, pinExistence, souExistence, jiExistence] = existenceCheck();
+    
+    //シャンテン数算出関数
+    function syantenHantei(toitsuCount, isolateMentsuCount) {
+      var zanteiSyantenCount = 0;
+      var blockCount = 0;
+      blockCount = (manMentsuMax + pinMentsuMax + souMentsuMax + isolateMentsuCount) + (manTatsuMax + pinTatsuMax + souTatsuMax + jiTatsuMax + toitsuCount);
+      if (blockCount > 4) {
+        zanteiSyantenCount = 8 - (manMentsuMax + pinMentsuMax + souMentsuMax + isolateMentsuCount)*2 - (manTatsuMax + pinTatsuMax + souTatsuMax + jiTatsuMax) - toitsuCount*2 + (blockCount - 4);
+      } 
+      else {
+        zanteiSyantenCount = 8 - (manMentsuMax + pinMentsuMax + souMentsuMax + isolateMentsuCount)*2 - (manTatsuMax + pinTatsuMax + souTatsuMax + jiTatsuMax) - toitsuCount*2;
+      };
+      return zanteiSyantenCount;
+    };
 
     //副露数算出
     function huroMentsuCheck() {
