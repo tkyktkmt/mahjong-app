@@ -341,6 +341,20 @@ const hand = () => {
       return zanteiSyantenCount;
     };
 
+    //字牌ターツを抜き出してカウント
+    function jiTatsuCheck() {
+      var jiTatsuCount = 0;
+      for (var j=0;j<handPaiArrayCopy.length;j++) {
+        if (handPaiArrayCopy[j].name>=61 && handPaiArrayCopy[j].name<=67 &&
+          $(`img[name="${Math.round(handPaiArrayCopy[j].name)}"].pai`).length >= 2) {
+          handPaiArrayCopy.splice(j,2);
+          j--;
+          jiTatsuCount++;
+        };
+      };
+      return jiTatsuCount;
+    };
+    
     //副露数算出
     function huroMentsuCheck() {
       huroMentsuCount += $('.huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').filter('img[src]').not('img[src=""]').length / 3; 
