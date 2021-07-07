@@ -178,27 +178,9 @@ const hand = () => {
       editClassTr.append($('<td />', {id: `${editId}${j+1}`, class: `${editClassTd}`}).append(detached));
     }
   };
-
-  $("#submit-btn-hand").click(function(e) {
-    e.preventDefault();
-    const handFormResult = document.getElementById("hand-form");
+  //打牌候補結果表示ボタンクリック時の処理
+  $("#submit-btn-hand").click(function() {
     const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
-    //非表示フォームに手牌を入力
-    $(".pai").each(function(k){
-      var handPaiSrc = $(this).attr('src');
-      $(`#hand_pai${k+1}`).val(`${handPaiSrc}`);
-    });
-    //非表示フォームに副露牌を入力
-    for (let l=1; l<=4; l++) {
-      $(`.huro-pai${l}`).each(function(m){
-        var huroPaiSrc = $(this).attr('src');
-        $(`#hand_huro${l}_${m+1}`).val(`${huroPaiSrc}`);
-      });
-    };
-    //非表示フォームにドラを入力
-    var doraPaiSrc = $(".dora").attr("src");
-    $("#hand_dora").val(doraPaiSrc);
-    
     //validation設定
     //手牌総数カウント変数を定義
     let handPaiCount = handPaiArea.length
@@ -269,8 +251,7 @@ const hand = () => {
       alert(`Error ：同じ牌は最大４枚しか存在しません`);
     }
     else {
-      syantenCheck();
-      handFormResult.submit();
+      console.log(syantenCheck());
     };
   });
   
@@ -340,7 +321,21 @@ const hand = () => {
       };
       return zanteiSyantenCount;
     };
-
+    //字牌ターツを抜き出してカウント
+    function jiTatsuCheck() {
+      let handPaiArrayCopy = $.extend(true, [], handPaiArray);
+      var jiTatsuCount = 0;
+      for (var j=0;j<handPaiArrayCopy.length-1;j++) {
+        if (handPaiArrayCopy[j].name>=61 && handPaiArrayCopy[j].name<=67 &&
+          Math.round(handPaiArrayCopy[j].name) == Math.round(handPaiArrayCopy[j+1].name)) {
+          handPaiArrayCopy.splice(j,2);
+          j--;
+          jiTatsuCount++;
+        };
+      };
+      return jiTatsuCount;
+    };
+    
     //副露数算出
     function huroMentsuCheck() {
       huroMentsuCount += $('.huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').filter('img[src]').not('img[src=""]').length / 3; 
@@ -464,6 +459,10 @@ const hand = () => {
       };
       return [manExistence, pinExistence, souExistence, jiExistence];
     };
+  };
+  //有効牌算出機能
+  function wishPaiCheck() {
+    
   };
 };
 
