@@ -147,7 +147,8 @@
         <%= f.hidden_field :huro4_3 %>
         <%= f.hidden_field :dora %>
       <div class="submit-btn-wrap">
-        <%= f.submit "打牌候補結果へ", class: "submit-btn", id: "submit-btn-hand" %>
+        <%= link_to "打牌候補結果表示", "#", class: "submit-btn", id: "submit-btn-hand" %>
+        <%= f.submit "手牌保存", class: "submit-btn", id: "submit-btn-hand-save" %>
       </div>
   <% end %>
 </div>
