@@ -434,6 +434,9 @@ const hand = () => {
           };
         };
       };
+      //10の位にメンツ数、１の位にターツ数を格納し、manMentsuTatsuが大きい方の処理（g値）を採用
+			manMentsuTatsuMax = manMentsu*10 + manTatsu;
+      return [ manMentsuTatsuMax, manMentsu, manTatsu ];
     };
 
     //副露数算出
