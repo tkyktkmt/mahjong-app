@@ -317,7 +317,7 @@ const hand = () => {
         zanteiSyantenCount = 8 - (manMentsuMax + pinMentsuMax + souMentsuMax + isolateMentsuCount)*2 - (manTatsuMax + pinTatsuMax + souTatsuMax + jiTatsuMax) - toitsuCount*2 + (blockCount - 4);
       } 
       else {
-        zanteiSyantenCount = 8 - (manMentsuMax + pinMentsuMax + souMentsuMax + isolateMentsuCount)*2 - (manTatsuMax + pinTatsuMax + souTatsuMax + jiTatsuMax) - toitsuCount*2;
+        zanteiSyantenCount = 8 - (manMentsuMax + pinMentsuMax + souMentsuMax + isolateMentsuCount)*2 - (manTatsuMax + pinTatsuMax + souTatsuMax + jiTatsuMax) - toitsuCount;
       };
       return zanteiSyantenCount;
     };
