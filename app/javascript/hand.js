@@ -335,7 +335,63 @@ const hand = () => {
       };
       return jiTatsuCount;
     };
-    
+
+    //マンズのコーツ・シュンツ・ターツを抜き出してカウント
+    //g=1:コーツ→シュンツ→ターツの順に抜く
+    //g=2:シュンツ→コーツ→ターツの順に抜く
+    function manMentsuTatsuCheck(g) {
+      let handPaiArrayCopy = $.extend(true, [], handPaiArray);
+      var manMentsuTatsuMax = 0;
+      var manMentsu = 0;
+      var manTatsu = 0;
+      //マンズコーツを抜き出してカウント
+      function manKoutsuCheck() {
+        var manKoutsuCount =0;
+        for (var f=0;f<handPaiArrayCopy.length-2;f++) {
+          if (handPaiArrayCopy[f].name>=1 && handPaiArrayCopy[f].name<=9 &&
+            Math.round(handPaiArrayCopy[f].name) == Math.round(handPaiArrayCopy[f+1].name) && 
+            Math.round(handPaiArrayCopy[f].name) == Math.round(handPaiArrayCopy[f+2].name)) {
+            handPaiArrayCopy.splice(f,3);
+            f--;
+            manKoutsuCount++;
+          };
+        };
+        return manKoutsuCount;
+      };
+      
+      if(g==1) {manMentsu += manKoutsuCheck();};
+      //マンズシュンツを抜き出してカウント
+      for (var h=0;h<handPaiArrayCopy.length;h++) {
+        if (handPaiArrayCopy[h].name>=1 && handPaiArrayCopy[h].name<=9 ) {
+          function findFunc1(elen) {
+            if (elen.name == Math.round(handPaiArrayCopy[h].name)+1) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopy[h].name)+1+0.1) {
+              return elen.name;
+            };
+          };
+          function findFunc2(elen) {
+            if (elen.name == Math.round(handPaiArrayCopy[h].name)+2) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopy[h].name)+2+0.1) {
+              return elen.name;
+            };
+          };
+          //シュンツが存在する場合、その３枚を抜き出す
+          if ((handPaiArrayCopy.findIndex(findFunc2) != -1) && (handPaiArrayCopy.findIndex(findFunc1) != -1) ) {
+            handPaiArrayCopy.splice(handPaiArrayCopy.findIndex(findFunc2),1);
+            handPaiArrayCopy.splice(handPaiArrayCopy.findIndex(findFunc1),1);
+            handPaiArrayCopy.splice(h,1);
+            h--;
+            manMentsu++;
+          };
+        };
+      };
+      if(g==2) {manMentsu += manKoutsuCheck();};
+    };
+
     //副露数算出
     function huroMentsuCheck() {
       huroMentsuCount += $('.huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4').filter('img[src]').not('img[src=""]').length / 3; 
