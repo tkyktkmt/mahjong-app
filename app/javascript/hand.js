@@ -251,15 +251,14 @@ const hand = () => {
       alert(`Error ：同じ牌は最大４枚しか存在しません`);
     }
     else {
-      console.log(syantenCheck());
+    const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
+    let handPaiArray = Array.prototype.slice.call(handPaiArea);
+      wishPaiCheck(syantenCheck(handPaiArray),handPaiArray);
     };
   });
   
   //シャンテン数算出
-  function syantenCheck() {
-    const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
-    let handPaiArray = Array.prototype.slice.call(handPaiArea);
-    
+  function syantenCheck(handPaiArray) {
     var toitsuCount = 0;
     var zanteiSyantenCount = 0;
     var syantenCount=8;
@@ -295,6 +294,7 @@ const hand = () => {
     var isolationKoutsuCount = isolationKoutsuCheck();
     var isolationSyuntsuCount = isolationSyuntsuCheck();
     var isolationPaiCount = isolationPaiCheck();
+    
     //孤立のメンツ数をカウント
     var isolateMentsuCount = huroMentsuCount + isolationKoutsuCount + isolationSyuntsuCount;
     
@@ -323,35 +323,34 @@ const hand = () => {
     };
     //字牌ターツを抜き出してカウント
     function jiTatsuCheck() {
-      let handPaiArrayCopy = $.extend(true, [], handPaiArray);
+      let handPaiArrayCopyCopy = $.extend(true, [], handPaiArrayCopy);
       var jiTatsuCount = 0;
-      for (var j=0;j<handPaiArrayCopy.length-1;j++) {
-        if (handPaiArrayCopy[j].name>=61 && handPaiArrayCopy[j].name<=67 &&
-          Math.round(handPaiArrayCopy[j].name) == Math.round(handPaiArrayCopy[j+1].name)) {
-          handPaiArrayCopy.splice(j,2);
+      for (var j=0;j<handPaiArrayCopyCopy.length-1;j++) {
+        if (handPaiArrayCopyCopy[j].name>=61 && handPaiArrayCopyCopy[j].name<=67 &&
+          Math.round(handPaiArrayCopyCopy[j].name) == Math.round(handPaiArrayCopyCopy[j+1].name)) {
+          handPaiArrayCopyCopy.splice(j,2);
           j--;
           jiTatsuCount++;
         };
       };
-      return jiTatsuCount;
+      return [handPaiArrayCopyCopy, jiTatsuCount];
     };
-    
     //マンズのコーツ・シュンツ・ターツを抜き出してカウント
     //g=1:コーツ→シュンツ→ターツの順に抜く
     //g=2:シュンツ→コーツ→ターツの順に抜く
-    function manMentsuTatsuCheck(g) {
-      let handPaiArrayCopy = $.extend(true, [], handPaiArray);
+    function manMentsuTatsuCheck(g,handPaiArrayCopy) {
+      let handPaiArrayCopyCopy = $.extend(true, [], handPaiArrayCopy);
       var manMentsuTatsuMax = 0;
       var manMentsu = 0;
       var manTatsu = 0;
       //マンズコーツを抜き出してカウント
       function manKoutsuCheck() {
         var manKoutsuCount =0;
-        for (var f=0;f<handPaiArrayCopy.length-2;f++) {
-          if (handPaiArrayCopy[f].name>=1 && handPaiArrayCopy[f].name<=9 &&
-            Math.round(handPaiArrayCopy[f].name) == Math.round(handPaiArrayCopy[f+1].name) && 
-            Math.round(handPaiArrayCopy[f].name) == Math.round(handPaiArrayCopy[f+2].name)) {
-            handPaiArrayCopy.splice(f,3);
+        for (var f=0;f<handPaiArrayCopyCopy.length-2;f++) {
+          if (handPaiArrayCopyCopy[f].name>=1 && handPaiArrayCopyCopy[f].name<=9 &&
+            Math.round(handPaiArrayCopyCopy[f].name) == Math.round(handPaiArrayCopyCopy[f+1].name) && 
+            Math.round(handPaiArrayCopyCopy[f].name) == Math.round(handPaiArrayCopyCopy[f+2].name)) {
+            handPaiArrayCopyCopy.splice(f,3);
             f--;
             manKoutsuCount++;
           };
@@ -361,29 +360,29 @@ const hand = () => {
       
       if(g==1) {manMentsu += manKoutsuCheck();};
       //マンズシュンツを抜き出してカウント
-      for (var h=0;h<handPaiArrayCopy.length;h++) {
-        if (handPaiArrayCopy[h].name>=1 && handPaiArrayCopy[h].name<=9 ) {
+      for (var h=0;h<handPaiArrayCopyCopy.length;h++) {
+        if (handPaiArrayCopyCopy[h].name>=1 && handPaiArrayCopyCopy[h].name<=9 ) {
           function findFunc1(elen) {
-            if (elen.name == Math.round(handPaiArrayCopy[h].name)+1) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1) {
               return elen.name;
             }
-            else if (elen.name == Math.round(handPaiArrayCopy[h].name)+1+0.1) {
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1+0.1) {
               return elen.name;
             };
           };
           function findFunc2(elen) {
-            if (elen.name == Math.round(handPaiArrayCopy[h].name)+2) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2) {
               return elen.name;
             }
-            else if (elen.name == Math.round(handPaiArrayCopy[h].name)+2+0.1) {
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2+0.1) {
               return elen.name;
             };
           };
           //シュンツが存在する場合、その３枚を抜き出す
-          if ((handPaiArrayCopy.findIndex(findFunc2) != -1) && (handPaiArrayCopy.findIndex(findFunc1) != -1) ) {
-            handPaiArrayCopy.splice(handPaiArrayCopy.findIndex(findFunc2),1);
-            handPaiArrayCopy.splice(handPaiArrayCopy.findIndex(findFunc1),1);
-            handPaiArrayCopy.splice(h,1);
+          if ((handPaiArrayCopyCopy.findIndex(findFunc2) != -1) && (handPaiArrayCopyCopy.findIndex(findFunc1) != -1) ) {
+            handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc2),1);
+            handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc1),1);
+            handPaiArrayCopyCopy.splice(h,1);
             h--;
             manMentsu++;
           };
@@ -391,43 +390,43 @@ const hand = () => {
       };
       if(g==2) {manMentsu += manKoutsuCheck();};
       //マンズのターツを抜き出してカウント
-      for (var i=0;i<handPaiArrayCopy.length;i++) {
+      for (var i=0;i<handPaiArrayCopyCopy.length;i++) {
         outer:
-        if (handPaiArrayCopy[i].name>=1 && handPaiArrayCopy[i].name<=9) {
+        if (handPaiArrayCopyCopy[i].name>=1 && handPaiArrayCopyCopy[i].name<=9) {
           //トイツの抜き出し
-          if (i<handPaiArrayCopy.length-1 && (Math.round(handPaiArrayCopy[i].name) == Math.round(handPaiArrayCopy[i+1].name))) { 
-            handPaiArrayCopy.splice(i,2);
+          if (i<handPaiArrayCopyCopy.length-1 && (Math.round(handPaiArrayCopyCopy[i].name) == Math.round(handPaiArrayCopyCopy[i+1].name))) { 
+            handPaiArrayCopyCopy.splice(i,2);
             i--;
             manTatsu++;
             break outer;
           };
           //リャンメン、ペンチャンの抜き出し
           function findFunc3(elen) {
-            if (elen.name == Math.round(handPaiArrayCopy[i].name)+1) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+1) {
               return elen.name;
             }
-            else if (elen.name == Math.round(handPaiArrayCopy[i].name)+1+0.1) {
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+1+0.1) {
               return elen.name;
             };
           };
-          if (handPaiArrayCopy.findIndex(findFunc3) != -1) {
-            handPaiArrayCopy.splice(i,2);
+          if (handPaiArrayCopyCopy.findIndex(findFunc3) != -1) {
+            handPaiArrayCopyCopy.splice(i,2);
             i--;
             manTatsu++;
             break outer;
           };
           //カンチャンの抜き出し
           function findFunc4(elen) {
-            if (elen.name == Math.round(handPaiArrayCopy[i].name)+2) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+2) {
               return elen.name;
             }
-            else if (elen.name == Math.round(handPaiArrayCopy[i].name)+2+0.1) {
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+2+0.1) {
               return elen.name;
             };
           };
-          if (handPaiArrayCopy.findIndex(findFunc4) != -1) {
-            handPaiArrayCopy.splice(handPaiArrayCopy.findIndex(findFunc4),1);
-            handPaiArrayCopy.splice(i,1);
+          if (handPaiArrayCopyCopy.findIndex(findFunc4) != -1) {
+            handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc4),1);
+            handPaiArrayCopyCopy.splice(i,1);
             i--;
             manTatsu++;
             break outer;
@@ -436,7 +435,7 @@ const hand = () => {
       };
       //10の位にメンツ数、１の位にターツ数を格納し、manMentsuTatsuが大きい方の処理（g値）を採用
 			manMentsuTatsuMax = manMentsu*10 + manTatsu;
-      return [ manMentsuTatsuMax, manMentsu, manTatsu ];
+      return [ handPaiArrayCopyCopy, manMentsuTatsuMax, manMentsu, manTatsu ];
     };
 
     //副露数算出
