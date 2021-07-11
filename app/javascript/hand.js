@@ -308,6 +308,78 @@ const hand = () => {
     var jiExistence = 0;
     [manExistence, pinExistence, souExistence, jiExistence] = existenceCheck();
     
+    //ヘッドがある場合の処理
+    for (var k=0;k<handPaiArray.length;k++) {
+      //トイツの抜き出し
+      if (k<handPaiArray.length-1 && Math.round(handPaiArray[k].name) == Math.round(handPaiArray[k+1].name)) {
+        var zanteiToitsu = handPaiArray.splice(k,2);
+        toitsuCount++;
+      };
+      var handPaiArrayCopy = $.extend(true, [], handPaiArray);
+      //マンズがある場合のみ実行
+      if (manExistence > 0) {
+        [ manHandPaiArrayCopyCopy1, manMentsuTatsu1, manMentsu1, manTatsu1 ] = manMentsuTatsuCheck(1,handPaiArrayCopy);
+        [ manHandPaiArrayCopyCopy2, manMentsuTatsu2, manMentsu2, manTatsu2 ] = manMentsuTatsuCheck(2,handPaiArrayCopy);
+        if (manMentsuTatsu1 >= manMentsuTatsu2) {
+          manMentsuMax = manMentsu1
+          manTatsuMax = manTatsu1
+          handPaiArrayCopy = manHandPaiArrayCopyCopy1
+        }
+        else {
+          manMentsuMax = manMentsu2
+          manTatsuMax = manTatsu2
+          handPaiArrayCopy = manHandPaiArrayCopyCopy2
+        };
+      };
+      //ピンズがある場合のみ実行
+      if (pinExistence > 0) {
+        [ pinHandPaiArrayCopyCopy1, pinMentsuTatsu1, pinMentsu1, pinTatsu1 ] = pinMentsuTatsuCheck(1,handPaiArrayCopy);
+        [ pinHandPaiArrayCopyCopy2, pinMentsuTatsu2, pinMentsu2, pinTatsu2 ] = pinMentsuTatsuCheck(2,handPaiArrayCopy);
+        if (pinMentsuTatsu1 >= pinMentsuTatsu2) {
+          pinMentsuMax = pinMentsu1
+          pinTatsuMax = pinTatsu1
+          handPaiArrayCopy = pinHandPaiArrayCopyCopy1
+        }
+        else {
+          pinMentsuMax = pinMentsu2
+          pinTatsuMax = pinTatsu2
+          handPaiArrayCopy = pinHandPaiArrayCopyCopy2
+        };
+      };
+      //ソーズがある場合のみ実行
+      if (souExistence > 0) {
+        [ souHandPaiArrayCopyCopy1, souMentsuTatsu1, souMentsu1, souTatsu1 ] = souMentsuTatsuCheck(1,handPaiArrayCopy);
+        [ souHandPaiArrayCopyCopy2, souMentsuTatsu2, souMentsu2, souTatsu2 ] = souMentsuTatsuCheck(2,handPaiArrayCopy);
+        if (souMentsuTatsu1 >= souMentsuTatsu2) {
+          souMentsuMax = souMentsu1
+          souTatsuMax = souTatsu1
+          handPaiArrayCopy = souHandPaiArrayCopyCopy1
+        }
+        else {
+          souMentsuMax = souMentsu2
+          souTatsuMax = souTatsu2
+          handPaiArrayCopy = souHandPaiArrayCopyCopy2
+        };
+      };
+      //字牌がある場合のみ実行
+      if (jiExistence > 0) {
+        [ handPaiArrayCopy, jiTatsuMax ] = jiTatsuCheck(handPaiArrayCopy);
+      };
+      //シャンテン数の算出
+			zanteiSyantenCount = syantenHantei(toitsuCount, isolateMentsuCount);
+			if (syantenCount > zanteiSyantenCount){syantenCount = zanteiSyantenCount};
+      //アガリ状態なら即座に戻り値を返す
+      if (syantenCount == -1) {return -1;};
+      //抜き出していた暫定トイツを元に戻す
+      if (zanteiToitsu) {
+        handPaiArray.splice( k, 0, zanteiToitsu[0], zanteiToitsu[1] );
+        toitsuCount--;
+        zanteiToitsu = 0;
+      };
+    };
+    //シャンテン数と打牌候補を戻り値として返す
+    return syantenCount;
+
     //シャンテン数算出関数
     function syantenHantei(toitsuCount, isolateMentsuCount) {
       var zanteiSyantenCount = 0;
