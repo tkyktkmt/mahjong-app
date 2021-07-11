@@ -251,8 +251,8 @@ const hand = () => {
       alert(`Error ：同じ牌は最大４枚しか存在しません`);
     }
     else {
-    const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
-    let handPaiArray = Array.prototype.slice.call(handPaiArea);
+      const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
+      let handPaiArray = Array.prototype.slice.call(handPaiArea);
       wishPaiCheck(syantenCheck(handPaiArray),handPaiArray);
     };
   });
@@ -677,25 +677,27 @@ const hand = () => {
     //完全孤立シュンツ数算出
     function isolationSyuntsuCheck(){
       for (var v=0;v<handPaiArray.length;v++) {
-        if ((!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-1}"],[name="${Math.round(handPaiArray[v].name)-1+0.1}"]`).length) &&
-          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-2}"],[name="${Math.round(handPaiArray[v].name)-2+0.1}"]`).length) &&
-          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+3}"],[name="${Math.round(handPaiArray[v].name)+3+0.1}"]`).length) &&
-          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+4}"],[name="${Math.round(handPaiArray[v].name)+4+0.1}"]`).length)) {
-          //一盃口でない場合
-          if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 1 &&
-            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 1 &&
-            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 1) {
-            handPaiArray.splice(v,3);
-            v--;
-            isolationSyuntsuCount++;
-          }
-          //一盃口の場合
-          else if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 2 &&
-            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 2 &&
-            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 2) {
-            handPaiArray.splice(v,6);
-            v--;
-            isolationSyuntsuCount+=2;
+        if (handPaiArray[v].name < 61  ) {
+          if ((!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-1}"],[name="${Math.round(handPaiArray[v].name)-1+0.1}"]`).length) &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-2}"],[name="${Math.round(handPaiArray[v].name)-2+0.1}"]`).length) &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+3}"],[name="${Math.round(handPaiArray[v].name)+3+0.1}"]`).length) &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+4}"],[name="${Math.round(handPaiArray[v].name)+4+0.1}"]`).length)) {
+            //一盃口でない場合
+            if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 1 &&
+              $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 1 &&
+              $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 1) {
+              handPaiArray.splice(v,3);
+              v--;
+              isolationSyuntsuCount++;
+            }
+            //一盃口の場合
+            else if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 2 &&
+              $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 2 &&
+              $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 2) {
+              handPaiArray.splice(v,6);
+              v--;
+              isolationSyuntsuCount+=2;
+            };
           };
         };
       };
