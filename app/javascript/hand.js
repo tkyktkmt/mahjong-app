@@ -251,8 +251,8 @@ const hand = () => {
       alert(`Error ：同じ牌は最大４枚しか存在しません`);
     }
     else {
-    const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
-    let handPaiArray = Array.prototype.slice.call(handPaiArea);
+      const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
+      let handPaiArray = Array.prototype.slice.call(handPaiArea);
       wishPaiCheck(syantenCheck(handPaiArray),handPaiArray);
     };
   });
@@ -437,6 +437,210 @@ const hand = () => {
 			manMentsuTatsuMax = manMentsu*10 + manTatsu;
       return [ handPaiArrayCopyCopy, manMentsuTatsuMax, manMentsu, manTatsu ];
     };
+    //ピンズのコーツ・シュンツ・ターツを抜き出してカウント
+    //g=1:コーツ→シュンツ→ターツの順に抜く
+    //g=2:シュンツ→コーツ→ターツの順に抜く
+    function pinMentsuTatsuCheck(g) {
+      let handPaiArrayCopyCopy = $.extend(true, [], handPaiArrayCopy);
+      var pinMentsuTatsuMax = 0;
+      var pinMentsu = 0;
+      var pinTatsu = 0;
+      //ピンズコーツを抜き出してカウント
+      function pinKoutsuCheck() {
+        var pinKoutsuCount =0;
+        for (var f=0;f<handPaiArrayCopyCopy.length-2;f++) {
+          if (handPaiArrayCopyCopy[f].name>=21 && handPaiArrayCopyCopy[f].name<=29 &&
+            Math.round(handPaiArrayCopyCopy[f].name) == Math.round(handPaiArrayCopyCopy[f+1].name) && 
+            Math.round(handPaiArrayCopyCopy[f].name) == Math.round(handPaiArrayCopyCopy[f+2].name)) {
+            handPaiArrayCopyCopy.splice(f,3);
+            f--;
+            pinKoutsuCount++;
+          };
+        };
+        return pinKoutsuCount;
+      };
+      
+      if(g==1) {pinMentsu += pinKoutsuCheck();};
+      //ピンズシュンツを抜き出してカウント
+      for (var h=0;h<handPaiArrayCopyCopy.length;h++) {
+        if (handPaiArrayCopyCopy[h].name>=21 && handPaiArrayCopyCopy[h].name<=29 ) {
+          function findFunc1(elen) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1+0.1) {
+              return elen.name;
+            };
+          };
+          function findFunc2(elen) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2+0.1) {
+              return elen.name;
+            };
+          };
+          //シュンツが存在する場合、その３枚を抜き出す
+          if ((handPaiArrayCopyCopy.findIndex(findFunc2) != -1) && (handPaiArrayCopyCopy.findIndex(findFunc1) != -1) ) {
+            handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc2),1);
+            handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc1),1);
+            handPaiArrayCopyCopy.splice(h,1);
+            h--;
+            pinMentsu++;
+          };
+        };
+      };
+      if(g==2) {pinMentsu += pinKoutsuCheck();};
+      //ピンズのターツを抜き出してカウント
+      for (var i=0;i<handPaiArrayCopyCopy.length;i++) {
+        outer:
+        if (handPaiArrayCopyCopy[i].name>=21 && handPaiArrayCopyCopy[i].name<=29) {
+          //トイツの抜き出し
+          if (i<handPaiArrayCopyCopy.length-1 && (Math.round(handPaiArrayCopyCopy[i].name) == Math.round(handPaiArrayCopyCopy[i+1].name))) { 
+            handPaiArrayCopyCopy.splice(i,2);
+            i--;
+            pinTatsu++;
+            break outer;
+          };
+          //リャンメン、ペンチャンの抜き出し
+          function findFunc3(elen) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+1) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+1+0.1) {
+              return elen.name;
+            };
+          };
+          if (handPaiArrayCopyCopy.findIndex(findFunc3) != -1) {
+            handPaiArrayCopyCopy.splice(i,2);
+            i--;
+            pinTatsu++;
+            break outer;
+          };
+          //カンチャンの抜き出し
+          function findFunc4(elen) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+2) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+2+0.1) {
+              return elen.name;
+            };
+          };
+          if (handPaiArrayCopyCopy.findIndex(findFunc4) != -1) {
+            handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc4),1);
+            handPaiArrayCopyCopy.splice(i,1);
+            i--;
+            pinTatsu++;
+            break outer;
+          };
+        };
+      };
+      //10の位にメンツ数、１の位にターツ数を格納し、pinMentsuTatsuが大きい方の処理（g値）を採用
+			pinMentsuTatsuMax = pinMentsu*10 + pinTatsu;
+      return [ handPaiArrayCopyCopy, pinMentsuTatsuMax, pinMentsu, pinTatsu ];
+    };
+    //ソーズのコーツ・シュンツ・ターツを抜き出してカウント
+    //g=1:コーツ→シュンツ→ターツの順に抜く
+    //g=2:シュンツ→コーツ→ターツの順に抜く
+    function souMentsuTatsuCheck(g) {
+      let handPaiArrayCopyCopy = $.extend(true, [], handPaiArrayCopy);
+      var souMentsuTatsuMax = 0;
+      var souMentsu = 0;
+      var souTatsu = 0;
+      //ソーズコーツを抜き出してカウント
+      function souKoutsuCheck() {
+        var souKoutsuCount =0;
+        for (var f=0;f<handPaiArrayCopyCopy.length-2;f++) {
+          if (handPaiArrayCopyCopy[f].name>=41 && handPaiArrayCopyCopy[f].name<=49 &&
+            Math.round(handPaiArrayCopyCopy[f].name) == Math.round(handPaiArrayCopyCopy[f+1].name) && 
+            Math.round(handPaiArrayCopyCopy[f].name) == Math.round(handPaiArrayCopyCopy[f+2].name)) {
+            handPaiArrayCopyCopy.splice(f,3);
+            f--;
+            souKoutsuCount++;
+          };
+        };
+        return souKoutsuCount;
+      };
+      
+      if(g==1) {souMentsu += souKoutsuCheck();};
+      //ソーズシュンツを抜き出してカウント
+      for (var h=0;h<handPaiArrayCopyCopy.length;h++) {
+        if (handPaiArrayCopyCopy[h].name>=41 && handPaiArrayCopyCopy[h].name<=49 ) {
+          function findFunc1(elen) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1+0.1) {
+              return elen.name;
+            };
+          };
+          function findFunc2(elen) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2+0.1) {
+              return elen.name;
+            };
+          };
+          //シュンツが存在する場合、その３枚を抜き出す
+          if ((handPaiArrayCopyCopy.findIndex(findFunc2) != -1) && (handPaiArrayCopyCopy.findIndex(findFunc1) != -1) ) {
+            handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc2),1);
+            handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc1),1);
+            handPaiArrayCopyCopy.splice(h,1);
+            h--;
+            souMentsu++;
+          };
+        };
+      };
+      if(g==2) {souMentsu += souKoutsuCheck();};
+      //ソーズのターツを抜き出してカウント
+      for (var i=0;i<handPaiArrayCopyCopy.length;i++) {
+        outer:
+        if (handPaiArrayCopyCopy[i].name>=41 && handPaiArrayCopyCopy[i].name<=49) {
+          //トイツの抜き出し
+          if (i<handPaiArrayCopyCopy.length-1 && (Math.round(handPaiArrayCopyCopy[i].name) == Math.round(handPaiArrayCopyCopy[i+1].name))) { 
+            handPaiArrayCopyCopy.splice(i,2);
+            i--;
+            souTatsu++;
+            break outer;
+          };
+          //リャンメン、ペンチャンの抜き出し
+          function findFunc3(elen) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+1) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+1+0.1) {
+              return elen.name;
+            };
+          };
+          if (handPaiArrayCopyCopy.findIndex(findFunc3) != -1) {
+            handPaiArrayCopyCopy.splice(i,2);
+            i--;
+            souTatsu++;
+            break outer;
+          };
+          //カンチャンの抜き出し
+          function findFunc4(elen) {
+            if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+2) {
+              return elen.name;
+            }
+            else if (elen.name == Math.round(handPaiArrayCopyCopy[i].name)+2+0.1) {
+              return elen.name;
+            };
+          };
+          if (handPaiArrayCopyCopy.findIndex(findFunc4) != -1) {
+            handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc4),1);
+            handPaiArrayCopyCopy.splice(i,1);
+            i--;
+            souTatsu++;
+            break outer;
+          };
+        };
+      };
+      //10の位にメンツ数、１の位にターツ数を格納し、souMentsuTatsuが大きい方の処理（g値）を採用
+			souMentsuTatsuMax = souMentsu*10 + souTatsu;
+      return [ handPaiArrayCopyCopy, souMentsuTatsuMax, souMentsu, souTatsu ];
+    };
 
     //副露数算出
     function huroMentsuCheck() {
@@ -473,25 +677,27 @@ const hand = () => {
     //完全孤立シュンツ数算出
     function isolationSyuntsuCheck(){
       for (var v=0;v<handPaiArray.length;v++) {
-        if ((!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-1}"],[name="${Math.round(handPaiArray[v].name)-1+0.1}"]`).length) &&
-          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-2}"],[name="${Math.round(handPaiArray[v].name)-2+0.1}"]`).length) &&
-          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+3}"],[name="${Math.round(handPaiArray[v].name)+3+0.1}"]`).length) &&
-          (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+4}"],[name="${Math.round(handPaiArray[v].name)+4+0.1}"]`).length)) {
-          //一盃口でない場合
-          if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 1 &&
-            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 1 &&
-            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 1) {
-            handPaiArray.splice(v,3);
-            v--;
-            isolationSyuntsuCount++;
-          }
-          //一盃口の場合
-          else if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 2 &&
-            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 2 &&
-            $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 2) {
-            handPaiArray.splice(v,6);
-            v--;
-            isolationSyuntsuCount+=2;
+        if (handPaiArray[v].name < 61  ) {
+          if ((!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-1}"],[name="${Math.round(handPaiArray[v].name)-1+0.1}"]`).length) &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)-2}"],[name="${Math.round(handPaiArray[v].name)-2+0.1}"]`).length) &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+3}"],[name="${Math.round(handPaiArray[v].name)+3+0.1}"]`).length) &&
+            (!$(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+4}"],[name="${Math.round(handPaiArray[v].name)+4+0.1}"]`).length)) {
+            //一盃口でない場合
+            if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 1 &&
+              $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 1 &&
+              $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 1) {
+              handPaiArray.splice(v,3);
+              v--;
+              isolationSyuntsuCount++;
+            }
+            //一盃口の場合
+            else if($(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)}"],[name="${Math.round(handPaiArray[v].name)+0.1}"]`).length == 2 &&
+              $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+1}"],[name="${Math.round(handPaiArray[v].name)+1+0.1}"]`).length == 2 &&
+              $(`img.pai`).filter(`[name="${Math.round(handPaiArray[v].name)+2}"],[name="${Math.round(handPaiArray[v].name)+2+0.1}"]`).length == 2) {
+              handPaiArray.splice(v,6);
+              v--;
+              isolationSyuntsuCount+=2;
+            };
           };
         };
       };
