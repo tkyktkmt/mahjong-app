@@ -74,7 +74,32 @@
 
 | Column        | Type       | Options                        |
 |---------------|------------|--------------------------------|
-| hand          | string     | null: false                    |
+| pai1          | text       | null: false                    |
+| pai2          | text       | null: false                    |
+| pai3          | text       | null: false                    |
+| pai4          | text       | null: false                    |
+| pai5          | text       | null: false                    |
+| pai6          | text       | null: false                    |
+| pai7          | text       | null: false                    |
+| pai8          | text       | null: false                    |
+| pai9          | text       | null: false                    |
+| pai10         | text       | null: false                    |
+| pai11         | text       | null: false                    |
+| pai12         | text       | null: false                    |
+| pai13         | text       | null: false                    |
+| pai14         | text       | null: false                    |
+| huro1_1       | text       | null: false                    |
+| huro1_2       | text       | null: false                    |
+| huro1_3       | text       | null: false                    |
+| huro2_1       | text       | null: false                    |
+| huro2_2       | text       | null: false                    |
+| huro2_3       | text       | null: false                    |
+| huro3_1       | text       | null: false                    |
+| huro3_2       | text       | null: false                    |
+| huro3_3       | text       | null: false                    |
+| huro4_1       | text       | null: false                    |
+| huro4_2       | text       | null: false                    |
+| huro4_3       | text       | null: false                    |
 | status        | references | null: false, foreign_key: true |
 
 ### Association
