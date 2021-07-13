@@ -251,6 +251,8 @@ const hand = () => {
       alert(`Error ：同じ牌は最大４枚しか存在しません`);
     }
     else {
+      const syantenCountOutput = document.getElementById("syanten-count-wrap")
+      syantenCountOutput.innerHTML = "";
       const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
       let handPaiArray = Array.prototype.slice.call(handPaiArea);
       wishPaiCheck(syantenCheck(handPaiArray),handPaiArray);
@@ -377,6 +379,9 @@ const hand = () => {
         zanteiToitsu = 0;
       };
     };
+    //シャンテン数を結果表示画面に表示
+    const syantenCountOutput = document.getElementById("syanten-count-wrap")
+    syantenCountOutput.innerHTML = syantenCount;
     //シャンテン数と打牌候補を戻り値として返す
     return syantenCount;
 
