@@ -434,7 +434,6 @@ const hand = () => {
         };
         return manKoutsuCount;
       };
-      
       if(g==1) {manMentsu += manKoutsuCheck();};
       //マンズシュンツを抜き出してカウント
       for (var h=0;h<handPaiArrayCopyCopy.length;h++) {
@@ -846,8 +845,45 @@ const hand = () => {
     };
   };
   //有効牌算出機能
-  function wishPaiCheck() {
-    
+  function wishPaiCheck(syantenResult,handPaiArray) {
+    //14枚牌姿の時：シャンテン数を最小化する打牌候補それぞれに対し有効牌算出
+    if (handPaiArray.length % 3 == 2 ) {
+      
+    }
+    //13枚牌姿の時：有効牌算出
+    else if (handPaiArray.length % 3 == 1 ) {
+      //テンパイ字の和了牌算出
+      if (syantenResult[0] == 0) {
+        var machiTatsu = []
+        for (var k=0;k<handPaiArray.length;k++) {
+          //トイツの抜き出し
+          if (k<handPaiArray.length-1 && Math.round(handPaiArray[k].name) == Math.round(handPaiArray[k+1].name)) {
+            var zanteiToitsu = handPaiArray.splice(k,2);
+          };
+          let handPaiArrayCopy = $.extend(true, [], handPaiArray);
+          //残ターツの抜き出し
+          machiTatsu1 = agariPaiCheck(1,handPaiArrayCopy);
+          machiTatsu2 = agariPaiCheck(2,handPaiArrayCopy);
+    };
+    function agariPaiCheck(g,handPaiArrayCopy) {
+      var zanteiMachiTatsu = []
+      for (var x=0;x<handPaiArrayCopy.length;x++) {
+        let handPaiArrayCopyCopy = $.extend(true, [], handPaiArrayCopy);
+        //マンピンソーのコーツを抜き出してカウント
+        for (var y=0;y<=40;y+=20) {
+          function manKoutsuCheck() {
+            for (var f=0;f<handPaiArrayCopyCopy.length-2;f++) {
+              if (handPaiArrayCopyCopy[f].name>=y+1 && handPaiArrayCopyCopy[f].name<=y+9 &&
+                Math.round(handPaiArrayCopyCopy[f].name) == Math.round(handPaiArrayCopyCopy[f+1].name) && 
+                Math.round(handPaiArrayCopyCopy[f].name) == Math.round(handPaiArrayCopyCopy[f+2].name)) {
+                handPaiArrayCopyCopy.splice(f,3);
+                f--;
+              };
+            };
+          };
+        };
+      };
+    };
   };
 };
 
