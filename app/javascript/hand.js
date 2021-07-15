@@ -881,6 +881,64 @@ const hand = () => {
               };
             };
           };
+          //マンピンソーのシュンツを抜き出してカウント
+          for (var h=0;(h+x)<handPaiArrayCopyCopy.length;h++) {
+            if (handPaiArrayCopyCopy[h+x].name>=y+1 && handPaiArrayCopyCopy[h+x].name<=y+9 ) {
+              function findFunc1(elen) {
+                if (elen.name == Math.round(handPaiArrayCopyCopy[h+x].name)+1) {
+                  return elen.name;
+                }
+                else if (elen.name == Math.round(handPaiArrayCopyCopy[h+x].name)+1+0.1) {
+                  return elen.name;
+                };
+              };
+              function findFunc2(elen) {
+                if (elen.name == Math.round(handPaiArrayCopyCopy[h+x].name)+2) {
+                  return elen.name;
+                }
+                else if (elen.name == Math.round(handPaiArrayCopyCopy[h+x].name)+2+0.1) {
+                  return elen.name;
+                };
+              };
+              //シュンツが存在する場合、その３枚を抜き出す
+              if ((handPaiArrayCopyCopy.findIndex(findFunc2) != -1) && (handPaiArrayCopyCopy.findIndex(findFunc1) != -1) ) {
+                handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc2),1);
+                handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc1),1);
+                handPaiArrayCopyCopy.splice(h+x,1);
+                h--;
+              };
+            };
+          };
+          //マンピンソーのシュンツを抜き出してカウント2
+          if (x>=3) {
+            for (var h=0;(h)<handPaiArrayCopyCopy.length;h++) {
+              if (handPaiArrayCopyCopy[h].name>=y+1 && handPaiArrayCopyCopy[h].name<=y+9 ) {
+                function findFunc1(elen) {
+                  if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1) {
+                    return elen.name;
+                  }
+                  else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1+0.1) {
+                    return elen.name;
+                  };
+                };
+                function findFunc2(elen) {
+                  if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2) {
+                    return elen.name;
+                  }
+                  else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2+0.1) {
+                    return elen.name;
+                  };
+                };
+                //シュンツが存在する場合、その３枚を抜き出す
+                if ((handPaiArrayCopyCopy.findIndex(findFunc2) != -1) && (handPaiArrayCopyCopy.findIndex(findFunc1) != -1) ) {
+                  handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc2),1);
+                  handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc1),1);
+                  handPaiArrayCopyCopy.splice(h,1);
+                  h--;
+                };
+              };
+            };
+          };
         };
       };
     };
