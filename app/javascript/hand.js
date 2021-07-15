@@ -865,6 +865,9 @@ const hand = () => {
           machiTatsu1 = agariPaiCheck(1,handPaiArrayCopy);
           machiTatsu2 = agariPaiCheck(2,handPaiArrayCopy);
     };
+    //和了牌を算出
+    //g=1:コーツ→シュンツ順に抜く
+    //g=2:シュンツ→コーツ順に抜く
     function agariPaiCheck(g,handPaiArrayCopy) {
       var zanteiMachiTatsu = []
       for (var x=0;x<handPaiArrayCopy.length;x++) {
@@ -881,6 +884,7 @@ const hand = () => {
               };
             };
           };
+          if(g==1) {manKoutsuCheck();};
           //マンピンソーのシュンツを抜き出してカウント
           for (var h=0;(h+x)<handPaiArrayCopyCopy.length;h++) {
             if (handPaiArrayCopyCopy[h+x].name>=y+1 && handPaiArrayCopyCopy[h+x].name<=y+9 ) {
@@ -939,6 +943,7 @@ const hand = () => {
               };
             };
           };
+          if(g==2) { manKoutsuCheck();};
         };
       };
     };
