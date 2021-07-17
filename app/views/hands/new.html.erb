@@ -1,5 +1,5 @@
 <div class= "hand-input">
-  <h1 class="hand-input-title">手牌入力画面</h1>
+  <h1 class="hand-input-title">手牌入力画面<span class="notes">※13牌入力、テンパイの場合はアガリ牌が表示されます</span></h1>
   <div class="hand-choice">
     <div class="pai-list" >
       <%= image_tag "pai-images/man1-66-90-s-emb.png", alt:"一萬", name:1, id:"man1", class:"pais" %>
@@ -158,4 +158,25 @@
   <div class="syanten-count-wrap" >
       シャンテン数： <span id="syanten-count-wrap"></span>
   </div>
+  <div class="hand-output-table-title" >
+      アガリ牌一覧
+  </div>
+  <table class="hand-output-table" id="hand-output-table">
+    <tr class="hand-output-table-tr">
+      <td class="hand-output-table-td" id="wish-pai1"><%= image_tag "", id:"pai701", name:701, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai2"><%= image_tag "", id:"pai702", name:702, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai3"><%= image_tag "", id:"pai703", name:703, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai4"><%= image_tag "", id:"pai704", name:704, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai5"><%= image_tag "", id:"pai705", name:705, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai6"><%= image_tag "", id:"pai706", name:706, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai7"><%= image_tag "", id:"pai707", name:707, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai8"><%= image_tag "", id:"pai708", name:708, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai9"><%= image_tag "", id:"pai709", name:709, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai10"><%= image_tag "", id:"pai710", name:710, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai11"><%= image_tag "", id:"pai711", name:711, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai12"><%= image_tag "", id:"pai712", name:712, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai13"><%= image_tag "", id:"pai713", name:713, class:"wish-pai" %></td>
+      <td class="hand-output-table-td" id="wish-pai14"><%= image_tag "", id:"pai714", name:714, class:"wish-pai" %></td>
+    </tr>
+  </table>
 </div>
