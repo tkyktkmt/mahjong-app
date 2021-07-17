@@ -1047,7 +1047,35 @@ const hand = () => {
           };
           if(g==2) { manKoutsuCheck();};
         };
+        //待ちになるターツ候補を追加
+        for (z=0;z<zanteiMachiTatsu.length;z++) {
+          if (handPaiArrayCopyCopy.length >= 3) {
+            break;
+          }
+          else if (handPaiArrayCopyCopy.length == 1 && zanteiMachiTatsu[z].length == 1 &&
+             Math.round(handPaiArrayCopyCopy[0].name) == Math.round(zanteiMachiTatsu[z][0].name)) {
+             handPaiArrayCopyCopy.splice(z,1)
+             break;
+          }
+          else if (handPaiArrayCopyCopy.length == 2 && zanteiMachiTatsu[z].length == 2 &&
+                   Math.round(handPaiArrayCopyCopy[0].name) == Math.round(zanteiMachiTatsu[z][0].name) &&
+                   Math.round(handPaiArrayCopyCopy[1].name) == Math.round(zanteiMachiTatsu[z][1].name)) {
+                   handPaiArrayCopyCopy.splice(z,2)
+                   break;
+          };
+        };
+        if (handPaiArrayCopyCopy.length == 1 ) {
+            zanteiMachiTatsu.push(handPaiArrayCopyCopy)
+        }
+        else if (handPaiArrayCopyCopy.length == 2) {
+          if (Math.round(handPaiArrayCopyCopy[0].name) == Math.round(handPaiArrayCopyCopy[1].name) ||
+              Math.round(handPaiArrayCopyCopy[0].name )+ 1 == Math.round(handPaiArrayCopyCopy[1].name) || 
+              Math.round(handPaiArrayCopyCopy[0].name) + 2 == Math.round(handPaiArrayCopyCopy[1].name)) {
+              zanteiMachiTatsu.push(handPaiArrayCopyCopy)
+          };
+        };
       };
+      return zanteiMachiTatsu;
     };
   };
 };
