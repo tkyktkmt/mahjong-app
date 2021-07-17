@@ -1,4 +1,4 @@
-.hand-input-title {
+.hand-input-title, .hand-output-title {
   margin-top: 10px;
   font-size: 25px;
 }
@@ -15,8 +15,20 @@
   color: #4CAF50;
   margin-top: 10px;
 }
+.hand-output-table {
+  border-collapse: collapse;
+  padding: 0;
+  width: 570px;
+  table-layout: fixed;
+  color: #4CAF50;
+}
 
 .hand-table td {
+  padding: 8px 0 0 0 ;
+  text-align: center;
+}
+
+.hand-output-table td {
   padding: 8px 0 0 0 ;
   text-align: center;
 }
@@ -55,7 +67,10 @@
 .dora {
   vertical-align: middle;
 }
-
+.notes {
+  font-size:15px;
+  margin-left: 20px;
+}
 
 /* .hidden{
   display:none;
