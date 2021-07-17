@@ -253,6 +253,7 @@ const hand = () => {
     else {
       const syantenCountOutput = document.getElementById("syanten-count-wrap")
       syantenCountOutput.innerHTML = "";
+      $('.wish-pai').attr({src: "", name: ""});
       const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
       let handPaiArray = Array.prototype.slice.call(handPaiArea);
       wishPaiCheck(syantenCheck(handPaiArray),handPaiArray);
@@ -864,6 +865,107 @@ const hand = () => {
           //残ターツの抜き出し
           machiTatsu1 = agariPaiCheck(1,handPaiArrayCopy);
           machiTatsu2 = agariPaiCheck(2,handPaiArrayCopy);
+          //machiTatsu1とmachiTatsu2の重複を排除しmachiTatsu2へ統合
+          for (z=0;z<machiTatsu1.length;z++) {
+            outer:
+            for (a=0;a<machiTatsu2.length;a++) {
+              if (machiTatsu1[z].length == 1 && machiTatsu2[a].length == 1 &&
+                  Math.round(machiTatsu1[z][0].name) == Math.round(machiTatsu2[a][0].name)) {
+                  machiTatsu1.splice(z,1);
+                  z--;
+                  break outer;
+              }
+              else if (machiTatsu1[z].length == 2 && machiTatsu2[a].length == 2 &&
+                  Math.round(machiTatsu1[z][0].name) == Math.round(machiTatsu2[a][0].name) &&
+                  Math.round(machiTatsu1[z][1].name) == Math.round(machiTatsu2[a][1].name)) {
+                  machiTatsu1.splice(z,1);
+                  z--;
+                  break outer;
+              };
+            };
+          };
+          Array.prototype.push.apply(machiTatsu2, machiTatsu1);
+          //machiTatsuとmachiTatsu2の重複を排除しmachiTatsuへ統合
+          for (b=0;b<machiTatsu2.length;b++) {
+            outer:
+            for (c=0;c<machiTatsu.length;c++) {
+              if (machiTatsu2[b].length == 1 && machiTatsu[c].length == 1 &&
+                Math.round(machiTatsu2[b][0].name) == Math.round(machiTatsu[c][0].name)) {
+                machiTatsu2.splice(b,1);
+                b--;
+                break outer;
+              }
+              else if (machiTatsu2[b].length == 2 && machiTatsu[c].length == 2 &&
+                  Math.round(machiTatsu2[b][0].name) == Math.round(machiTatsu[c][0].name) &&
+                  Math.round(machiTatsu2[b][1].name) == Math.round(machiTatsu[c][1].name)) {
+                  machiTatsu2.splice(b,1);
+                  b--;
+                  break outer;
+              };
+            };
+          };
+          Array.prototype.push.apply(machiTatsu, machiTatsu2);
+          //抜き出していた暫定トイツを元に戻す
+          if (zanteiToitsu) {
+            handPaiArray.splice( k, 0, zanteiToitsu[0], zanteiToitsu[1] );
+            zanteiToitsu = 0;
+          };
+        };
+        var machiPaiArray = [];
+        for (d=0;d<machiTatsu.length;d++) {
+          //単騎の待ち牌
+          if (machiTatsu[d].length == 1) {
+            Array.prototype.push.apply(machiPaiArray, machiTatsu[d]);
+          }
+          //単騎以外の待ち牌
+          else if (machiTatsu[d].length == 2) {
+            //シャンポン等トイツの待ち牌
+            if (Math.round(machiTatsu[d][0].name) == Math.round(machiTatsu[d][1].name)) {
+              // Array.prototype.push.apply(machiPaiArray, machiTatsu[d][0])は使えない
+              machiPaiArray.push(machiTatsu[d][0]);
+            }
+            else if (Math.round(machiTatsu[d][0].name) + 1 == Math.round(machiTatsu[d][1].name )) {
+              //ペンチャンの待ち牌
+              if ( Math.round(machiTatsu[d][0].name) == 1 ) {
+                Array.prototype.push.apply(machiPaiArray, $(`img.pais`).filter(`[name="${Math.round(machiTatsu[d][0].name)+2}"]`))
+              }
+              else if ( Math.round(machiTatsu[d][1].name) == 9 ) {
+                Array.prototype.push.apply(machiPaiArray, $(`img.pais`).filter(`[name="${Math.round(machiTatsu[d][1].name)-2}"]`))
+              }
+              //リャンメンの待ち牌
+              else  {
+                Array.prototype.push.apply(machiPaiArray, $(`img.pais`).filter(`[name="${Math.round(machiTatsu[d][0].name)-1}"]`))
+                Array.prototype.push.apply(machiPaiArray, $(`img.pais`).filter(`[name="${Math.round(machiTatsu[d][1].name)+1}"]`))
+              };
+            }
+            //カンチャンの待ち牌
+            else if (Math.round(machiTatsu[d][0].name) + 2 == Math.round(machiTatsu[d][1].name )) {
+              Array.prototype.push.apply(machiPaiArray, $(`img.pais`).filter(`[name="${Math.round(machiTatsu[d][0].name)+1}"]`))
+            }
+          };
+        };
+        //machiPaiArrayの重複を削除
+        machiPaiArray = machiPaiArray.filter((elem, index, array) => 
+        array.findIndex(e => 
+          e.src === elem.src && e.name === elem.name
+          ) === index
+          );
+        //machiPaiArrayを理牌
+        machiPaiArray.sort(function(a, b) {
+          if (a.name - b.name > 0) {
+          return 1;
+          }
+          else {
+            return -1;
+          }
+        });
+        //machiPaiArrayをアガリ牌一覧に表示
+        for(x=0; x<machiPaiArray.length; x++) {
+          var paiSrc = $('img.pais').filter(`[name="${Math.round(machiPaiArray[x].name)}"]`).attr("src");
+          var paiName = $('img.pais').filter(`[name="${Math.round(machiPaiArray[x].name)}"]`).attr("name");
+          $(`#pai${701+x}`).attr({src: paiSrc, name: paiName});
+        };
+      };
     };
     //和了牌を算出
     //g=1:コーツ→シュンツ順に抜く
