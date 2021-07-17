@@ -854,7 +854,7 @@ const hand = () => {
     //13枚牌姿の時：有効牌算出
     else if (handPaiArray.length % 3 == 1 ) {
       //テンパイ字の和了牌算出
-      if (syantenResult[0] == 0) {
+      if (syantenResult == 0) {
         var machiTatsu = []
         for (var k=0;k<handPaiArray.length;k++) {
           //トイツの抜き出し
