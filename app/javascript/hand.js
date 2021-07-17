@@ -865,6 +865,9 @@ const hand = () => {
           machiTatsu1 = agariPaiCheck(1,handPaiArrayCopy);
           machiTatsu2 = agariPaiCheck(2,handPaiArrayCopy);
     };
+    //和了牌を算出
+    //g=1:コーツ→シュンツ順に抜く
+    //g=2:シュンツ→コーツ順に抜く
     function agariPaiCheck(g,handPaiArrayCopy) {
       var zanteiMachiTatsu = []
       for (var x=0;x<handPaiArrayCopy.length;x++) {
@@ -881,6 +884,66 @@ const hand = () => {
               };
             };
           };
+          if(g==1) {manKoutsuCheck();};
+          //マンピンソーのシュンツを抜き出してカウント
+          for (var h=0;(h+x)<handPaiArrayCopyCopy.length;h++) {
+            if (handPaiArrayCopyCopy[h+x].name>=y+1 && handPaiArrayCopyCopy[h+x].name<=y+9 ) {
+              function findFunc1(elen) {
+                if (elen.name == Math.round(handPaiArrayCopyCopy[h+x].name)+1) {
+                  return elen.name;
+                }
+                else if (elen.name == Math.round(handPaiArrayCopyCopy[h+x].name)+1+0.1) {
+                  return elen.name;
+                };
+              };
+              function findFunc2(elen) {
+                if (elen.name == Math.round(handPaiArrayCopyCopy[h+x].name)+2) {
+                  return elen.name;
+                }
+                else if (elen.name == Math.round(handPaiArrayCopyCopy[h+x].name)+2+0.1) {
+                  return elen.name;
+                };
+              };
+              //シュンツが存在する場合、その３枚を抜き出す
+              if ((handPaiArrayCopyCopy.findIndex(findFunc2) != -1) && (handPaiArrayCopyCopy.findIndex(findFunc1) != -1) ) {
+                handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc2),1);
+                handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc1),1);
+                handPaiArrayCopyCopy.splice(h+x,1);
+                h--;
+              };
+            };
+          };
+          //マンピンソーのシュンツを抜き出してカウント2
+          if (x>=3) {
+            for (var h=0;(h)<handPaiArrayCopyCopy.length;h++) {
+              if (handPaiArrayCopyCopy[h].name>=y+1 && handPaiArrayCopyCopy[h].name<=y+9 ) {
+                function findFunc1(elen) {
+                  if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1) {
+                    return elen.name;
+                  }
+                  else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+1+0.1) {
+                    return elen.name;
+                  };
+                };
+                function findFunc2(elen) {
+                  if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2) {
+                    return elen.name;
+                  }
+                  else if (elen.name == Math.round(handPaiArrayCopyCopy[h].name)+2+0.1) {
+                    return elen.name;
+                  };
+                };
+                //シュンツが存在する場合、その３枚を抜き出す
+                if ((handPaiArrayCopyCopy.findIndex(findFunc2) != -1) && (handPaiArrayCopyCopy.findIndex(findFunc1) != -1) ) {
+                  handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc2),1);
+                  handPaiArrayCopyCopy.splice(handPaiArrayCopyCopy.findIndex(findFunc1),1);
+                  handPaiArrayCopyCopy.splice(h,1);
+                  h--;
+                };
+              };
+            };
+          };
+          if(g==2) { manKoutsuCheck();};
         };
       };
     };
