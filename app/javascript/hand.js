@@ -139,7 +139,7 @@ const hand = () => {
   //ドラ削除
   $(".dora").click(function() {
     $(this).removeAttr("src")
-  })
+  });
   //副露削除
   for (let i=1; i<=4; i++) {
     $(`.huro-pai${i}`).click(function() {
@@ -155,7 +155,7 @@ const hand = () => {
       //副露表示欄の空のtdを削除してtdタグの総数を3に保つ
       $(`.huro-table${i}-td:empty`).remove();
     })
-  }
+  };
   
   //理牌メソッド
   function sortHand(List, editClassTr, editId, editClassTd) {
@@ -256,7 +256,7 @@ const hand = () => {
       $('.wish-pai').attr({src: "", name: ""});
       const handPaiArea = $('.pai, .huro-pai1, .huro-pai2, .huro-pai3, .huro-pai4');
       let handPaiArray = Array.prototype.slice.call(handPaiArea);
-      wishPaiCheck(syantenCheck(handPaiArray),handPaiArray);
+      wishPaiCheck(syantenCheck(handPaiArray),handPaiArray, handPaiCount);
     };
   });
   
@@ -310,15 +310,20 @@ const hand = () => {
     var souExistence = 0;
     var jiExistence = 0;
     [manExistence, pinExistence, souExistence, jiExistence] = existenceCheck();
+
+    //シャンテン数表示欄
+    const syantenCountOutput = document.getElementById("syanten-count-wrap")
     
     //ヘッドがある場合の処理
     for (var k=0;k<handPaiArray.length;k++) {
       //トイツの抜き出し
-      if (k<handPaiArray.length-1 && Math.round(handPaiArray[k].name) == Math.round(handPaiArray[k+1].name)) {
-        var zanteiToitsu = handPaiArray.splice(k,2);
-        toitsuCount++;
-      };
       var handPaiArrayCopy = $.extend(true, [], handPaiArray);
+      var toitsuCount = 0;
+      var zanteiToitsu = 0;
+      if (k<handPaiArrayCopy.length-1 && Math.round(handPaiArrayCopy[k].name) == Math.round(handPaiArrayCopy[k+1].name)) {
+        zanteiToitsu = handPaiArrayCopy.splice(k,2);
+        toitsuCount = 1;
+      };
       //マンズがある場合のみ実行
       if (manExistence > 0) {
         [ manHandPaiArrayCopyCopy1, manMentsuTatsu1, manMentsu1, manTatsu1 ] = manMentsuTatsuCheck(1,handPaiArrayCopy);
@@ -372,16 +377,12 @@ const hand = () => {
 			zanteiSyantenCount = syantenHantei(toitsuCount, isolateMentsuCount);
 			if (syantenCount > zanteiSyantenCount){syantenCount = zanteiSyantenCount};
       //アガリ状態なら即座に戻り値を返す
-      if (syantenCount == -1) {return -1;};
-      //抜き出していた暫定トイツを元に戻す
-      if (zanteiToitsu) {
-        handPaiArray.splice( k, 0, zanteiToitsu[0], zanteiToitsu[1] );
-        toitsuCount--;
-        zanteiToitsu = 0;
+      if (syantenCount == -1) {
+        syantenCountOutput.innerHTML = -1 + "（和了です）";
+        return -1;
       };
     };
     //シャンテン数を結果表示画面に表示
-    const syantenCountOutput = document.getElementById("syanten-count-wrap")
     syantenCountOutput.innerHTML = syantenCount;
     //シャンテン数と打牌候補を戻り値として返す
     return syantenCount;
@@ -846,22 +847,20 @@ const hand = () => {
     };
   };
   //有効牌算出機能
-  function wishPaiCheck(syantenResult,handPaiArray) {
+  function wishPaiCheck(syantenResult,handPaiArray,handPaiCount) {
     //14枚牌姿の時：シャンテン数を最小化する打牌候補それぞれに対し有効牌算出
-    if (handPaiArray.length % 3 == 2 ) {
-      
-    }
     //13枚牌姿の時：有効牌算出
-    else if (handPaiArray.length % 3 == 1 ) {
+    if (handPaiCount == 13 || handPaiCount == 14 ) {
       //テンパイ字の和了牌算出
-      if (syantenResult == 0) {
+      if (syantenResult == 0 ) {
         var machiTatsu = []
         for (var k=0;k<handPaiArray.length;k++) {
           //トイツの抜き出し
-          if (k<handPaiArray.length-1 && Math.round(handPaiArray[k].name) == Math.round(handPaiArray[k+1].name)) {
-            var zanteiToitsu = handPaiArray.splice(k,2);
-          };
+          var zanteiToitsu = 0;
           let handPaiArrayCopy = $.extend(true, [], handPaiArray);
+          if (k<handPaiArrayCopy.length-1 && Math.round(handPaiArrayCopy[k].name) == Math.round(handPaiArrayCopy[k+1].name)) {
+            zanteiToitsu = handPaiArrayCopy.splice(k,2);
+          };
           //残ターツの抜き出し
           machiTatsu1 = agariPaiCheck(1,handPaiArrayCopy);
           machiTatsu2 = agariPaiCheck(2,handPaiArrayCopy);
@@ -905,11 +904,6 @@ const hand = () => {
             };
           };
           Array.prototype.push.apply(machiTatsu, machiTatsu2);
-          //抜き出していた暫定トイツを元に戻す
-          if (zanteiToitsu) {
-            handPaiArray.splice( k, 0, zanteiToitsu[0], zanteiToitsu[1] );
-            zanteiToitsu = 0;
-          };
         };
         var machiPaiArray = [];
         for (d=0;d<machiTatsu.length;d++) {
@@ -967,6 +961,15 @@ const hand = () => {
         };
       };
     };
+    //blockCount > 4の時
+     //ヘッドレスの時：ヘッド化orメンツ化（ターツ化はシャンテン数が減らない）
+     //ヘッドありの時：ヘッド部分以外のメンツ化（２トイツ以上の場合は注意）
+    //blockCount = 4の時
+     //ヘッドレスの時：孤立牌のヘッド化（５ブロック）orメンツ化
+     //ヘッドありの時：孤立牌のターツ化（５ブロック）orメンツ化
+    //blockCount < 4の時
+     //メンツ化orターツ化
+
     //和了牌を算出
     //g=1:コーツ→シュンツ順に抜く
     //g=2:シュンツ→コーツ順に抜く
@@ -1047,32 +1050,38 @@ const hand = () => {
           };
           if(g==2) { manKoutsuCheck();};
         };
-        //待ちになるターツ候補を追加
-        for (z=0;z<zanteiMachiTatsu.length;z++) {
-          if (handPaiArrayCopyCopy.length >= 3) {
-            break;
+        //待ちになるターツ候補を追加（手牌13枚、聴牌）
+        if (handPaiCount == 13 ) {
+          for (z=0;z<zanteiMachiTatsu.length;z++) {
+            if (handPaiArrayCopyCopy.length >= 3) {
+              break;
+            }
+            else if (handPaiArrayCopyCopy.length == 1 && zanteiMachiTatsu[z].length == 1 &&
+              Math.round(handPaiArrayCopyCopy[0].name) == Math.round(zanteiMachiTatsu[z][0].name)) {
+              handPaiArrayCopyCopy.splice(z,1)
+              break;
+            }
+            else if (handPaiArrayCopyCopy.length == 2 && zanteiMachiTatsu[z].length == 2 &&
+                    Math.round(handPaiArrayCopyCopy[0].name) == Math.round(zanteiMachiTatsu[z][0].name) &&
+                    Math.round(handPaiArrayCopyCopy[1].name) == Math.round(zanteiMachiTatsu[z][1].name)) {
+                    handPaiArrayCopyCopy.splice(z,2)
+                    break;
+            };
+          };
+          if (handPaiArrayCopyCopy.length == 1 ) {
+              zanteiMachiTatsu.push(handPaiArrayCopyCopy)
           }
-          else if (handPaiArrayCopyCopy.length == 1 && zanteiMachiTatsu[z].length == 1 &&
-             Math.round(handPaiArrayCopyCopy[0].name) == Math.round(zanteiMachiTatsu[z][0].name)) {
-             handPaiArrayCopyCopy.splice(z,1)
-             break;
-          }
-          else if (handPaiArrayCopyCopy.length == 2 && zanteiMachiTatsu[z].length == 2 &&
-                   Math.round(handPaiArrayCopyCopy[0].name) == Math.round(zanteiMachiTatsu[z][0].name) &&
-                   Math.round(handPaiArrayCopyCopy[1].name) == Math.round(zanteiMachiTatsu[z][1].name)) {
-                   handPaiArrayCopyCopy.splice(z,2)
-                   break;
+          else if (handPaiArrayCopyCopy.length == 2) {
+            if (Math.round(handPaiArrayCopyCopy[0].name) == Math.round(handPaiArrayCopyCopy[1].name) ||
+                Math.round(handPaiArrayCopyCopy[0].name )+ 1 == Math.round(handPaiArrayCopyCopy[1].name) || 
+                Math.round(handPaiArrayCopyCopy[0].name) + 2 == Math.round(handPaiArrayCopyCopy[1].name)) {
+                zanteiMachiTatsu.push(handPaiArrayCopyCopy)
+            };
           };
         };
-        if (handPaiArrayCopyCopy.length == 1 ) {
-            zanteiMachiTatsu.push(handPaiArrayCopyCopy)
-        }
-        else if (handPaiArrayCopyCopy.length == 2) {
-          if (Math.round(handPaiArrayCopyCopy[0].name) == Math.round(handPaiArrayCopyCopy[1].name) ||
-              Math.round(handPaiArrayCopyCopy[0].name )+ 1 == Math.round(handPaiArrayCopyCopy[1].name) || 
-              Math.round(handPaiArrayCopyCopy[0].name) + 2 == Math.round(handPaiArrayCopyCopy[1].name)) {
-              zanteiMachiTatsu.push(handPaiArrayCopyCopy)
-          };
+        //待ちになるターツ候補を追加（手牌14枚、聴牌）
+        if (handPaiCount == 14 ) {
+          var dapaiMachiPai = []
         };
       };
       return zanteiMachiTatsu;
